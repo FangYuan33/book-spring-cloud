@@ -1,0 +1,11 @@
+server:
+  port: 8092
+spring:
+  application:
+    name: "demo-nacos-consumer"
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 101.43.163.223:8848
+      username: nacos
+      password: nacos

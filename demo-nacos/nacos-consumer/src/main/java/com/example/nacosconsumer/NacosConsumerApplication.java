@@ -1,4 +1,4 @@
-package com.example.nacosprovider;
+package com.example.nacosconsumer;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
