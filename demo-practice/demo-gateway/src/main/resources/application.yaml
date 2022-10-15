@@ -1,0 +1,22 @@
+server:
+  port: 8095
+spring:
+  application:
+    name: "demo-gateway"
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 101.43.163.223:8848
+      username: nacos
+      password: nacos
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes: [ {
+        "id": "demo-order-service",
+        "uri": "lb://demo-order-service",
+        "order": 1,
+        "predicates": "Path=/order/**"
+      } ]
