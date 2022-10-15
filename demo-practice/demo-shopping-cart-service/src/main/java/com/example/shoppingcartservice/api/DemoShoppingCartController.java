@@ -11,7 +11,7 @@ public class DemoShoppingCartController {
     @Value("${server.port}")
     private String serverPort;
 
-    @GetMapping("/shop-cart/{cartId}")
+    @GetMapping("/shopping-cart/{cartId}")
     public String cartItemDetail(@PathVariable("cartId") int cartId) {
         // 根据id查询商品并返回给调用端
         if (cartId < 0 || cartId > 100000) {
