@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FeignClient(value = "demo-shopping-cart-service", path = "/shopping-cart")
 public interface DemoShoppingCartService {
 
-    @GetMapping
-    String getCartItemDetail(@PathVariable("/{cartId}") int cartId);
+    @GetMapping("/{cartId}")
+    String getCartItemDetail(@PathVariable("cartId") int cartId);
 }

@@ -14,10 +14,15 @@ spring:
         locator:
           enabled: true
           lower-case-service-id: true
-      routes: [ {
-        "id": "demo-order-service",
-        "uri": "lb://demo-order-service",
-        "order": 1,
-        # predicate 添加断言条件，符合条件的通过验证
-        "predicates": "Path=/order/**"
-      } ]
+      routes:
+        - id: demo-order-service
+          uri: lb://demo-order-service
+          order: 1
+          # predicate 添加断言条件，符合条件的通过验证
+          predicates:
+            - Path=/order/**
+          filters:
+            # 过滤器
+#            - RedirectTo=302, https://baidu.com
+            # 自定义过滤器
+            - Order=100,100
