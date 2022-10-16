@@ -18,5 +18,6 @@ spring:
         "id": "demo-order-service",
         "uri": "lb://demo-order-service",
         "order": 1,
+        # predicate 添加断言条件，符合条件的通过验证
         "predicates": "Path=/order/**"
       } ]
