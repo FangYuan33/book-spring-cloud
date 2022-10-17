@@ -2,6 +2,7 @@ package com.example.orderservice.api;
 
 import com.example.orderservice.service.DemoGoodsService;
 import com.example.orderservice.service.DemoShoppingCartService;
+import io.seata.spring.annotation.GlobalTransactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +17,7 @@ public class DemoOrderController {
     @Resource
     private DemoShoppingCartService demoShoppingCartService;
 
+    @GlobalTransactional
     @GetMapping("/order/saveOrder")
     public String consumerTest(@RequestParam("cartId") int cartId, @RequestParam("goodsId") int goodsId) {
         // 调用商品服务

@@ -1,15 +1,18 @@
 package com.example.goodsservice.api;
 
+import com.example.goodsservice.dao.NewBeeMallGoodsMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class DemoGoodsController {
 
     @Value("${server.port}")
     private String serverPort;
+
+    @Autowired
+    private NewBeeMallGoodsMapper goodsMapper;
 
     @GetMapping("/goods/{goodsId}")
     public String goodsDetail(@PathVariable("goodsId") int goodsId) {
@@ -20,5 +23,10 @@ public class DemoGoodsController {
         String goodsName = "商品" + goodsId;
         // 返回信息给调用端
         return goodsName + "，当前服务的端口号为" + serverPort;
+    }
+
+    @PostMapping("/goods/delete")
+    public void save(@RequestBody Long id) {
+        goodsMapper.deleteByPrimaryKey(id);
     }
 }

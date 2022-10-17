@@ -9,3 +9,26 @@ spring:
         server-addr: 101.43.163.223:8848
       username: nacos
       password: nacos
+  datasource:
+    name: newbee-mall-cloud-goods-datasource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://101.43.163.223:3306/newbee_mall_cloud_goods_db?useUnicode=true&serverTimezone=Asia/Shanghai&characterEncoding=utf8&autoReconnect=true&useSSL=false&allowMultiQueries=true
+    username: root
+    password: Turing
+
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
+
+seata:
+  enabled: true
+  application-id: goods-server
+  tx-service-group: test_save_order_group
+  registry:
+    type: nacos
+    nacos:
+      application: seata-server
+      server-addr: 101.43.163.223:8848
+      username: nacos
+      password: nacos
+      group: SEATA_GROUP
+      cluster: default
