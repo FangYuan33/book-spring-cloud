@@ -35,3 +35,6 @@ seata:
       password: nacos
       group: SEATA_GROUP
       cluster: default
+  client:
+    undo:
+      log-serialization: kryo
