@@ -9,6 +9,15 @@ spring:
         server-addr: 101.43.163.223:8848
       username: nacos
       password: nacos
+  datasource:
+    name: newbee-mall-cloud-goods-datasource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://101.43.163.223:3306/newbee_mall_cloud_cart_db?useUnicode=true&serverTimezone=Asia/Shanghai&characterEncoding=utf8&autoReconnect=true&useSSL=false&allowMultiQueries=true
+    username: root
+    password: Turing
+
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
 
 seata:
   enabled: true
