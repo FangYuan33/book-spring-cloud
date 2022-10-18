@@ -13,7 +13,9 @@ spring:
 seata:
   enabled: true
   application-id: order-server
-  tx-service-group: test_save_order_group
+  tx-service-group: test-save-order-group
+  service:
+    vgroup-mapping.test-save-order-group: default
   registry:
     type: nacos
     nacos:

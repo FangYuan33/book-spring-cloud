@@ -10,6 +10,7 @@ spring:
       username: nacos
       password: nacos
   datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
     name: newbee-mall-cloud-goods-datasource
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://101.43.163.223:3306/newbee_mall_cloud_goods_db?useUnicode=true&serverTimezone=Asia/Shanghai&characterEncoding=utf8&autoReconnect=true&useSSL=false&allowMultiQueries=true
@@ -22,7 +23,9 @@ mybatis:
 seata:
   enabled: true
   application-id: goods-server
-  tx-service-group: test_save_order_group
+  tx-service-group: test-save-order-group
+  service:
+    vgroup-mapping.test-save-order-group: default
   registry:
     type: nacos
     nacos:
