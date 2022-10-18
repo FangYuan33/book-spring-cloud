@@ -26,7 +26,7 @@ public class DemoGoodsController {
     }
 
     @PostMapping("/goods/delete")
-    public void save(@RequestBody Long id) {
+    public void delete(@RequestBody Long id) {
         goodsMapper.deleteByPrimaryKey(id);
     }
 }
