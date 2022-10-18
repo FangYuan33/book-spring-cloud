@@ -33,15 +33,17 @@ public class DemoOrderController {
     }
 
     @Transactional
-//    @GlobalTransactional
+    @GlobalTransactional
     @GetMapping("/order/testSeata")
-    public void testSeata(@RequestParam("cartId") long cartId, @RequestParam("goodsId") long goodsId) throws TransactionException {
+    public void testSeata(@RequestParam("cartId") long cartId, @RequestParam("goodsId") long goodsId) {
         log.info("Test Seata: cartId:{}, goodsId:{}", cartId, goodsId);
 
+        // 删除商品
         demoGoodsService.delete(goodsId);
 
         int i = 1 / 0;
 
+        // 删除购物车中商品信息
         demoShoppingCartService.delete(cartId);
     }
 }
