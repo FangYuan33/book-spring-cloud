@@ -94,7 +94,7 @@ TC作为全局事务的管理者，根据事务执行过程中有没有发生异
 获取到本地锁，执行回滚操作并删除回滚数据。
 
 ### 5. Sentinel限流
-#### 5.1 限流策略
+#### 5.1 限流策略（controlBehavior）
 - **直接流控**: 直接作用于对应资源上，如果访问压力超过阈值，那么后续请求就会被拦截
 ![img_4.png](img_4.png)
   
@@ -110,11 +110,26 @@ TC作为全局事务的管理者，根据事务执行过程中有没有发生异
 spring.cloud.sentinel.web-context-unify=false
 ```
 
-#### 5.2 流控效果
+#### 5.2 流控效果（strategy）
 - **快速失败**: 也叫**直接拒绝**，当QPS超过任意规则的阈值后，新的请求就会被立即拒绝，拒绝方式为抛出FlowException异常
 - **Warm Up**: 预热或冷启动，Sentinel会在规定的预热时间内，将流量控制慢慢的加到给定阈值，避免大规模流量直接进来将服务器压垮
 - **匀速排队**: 让请求以均匀的速度通过，如果指定QPS为2，那么在该模式下，会500毫秒通过一个请求，其他请求进入队列排队，
   如果超过配置的等待时间，则会触发限流机制
+
+- 测试限流策略: QPS超过1采用直接流控+快速失败的模式
+```json
+[
+    {
+        "resource": "testSentinel",
+        "limitApp": "default",
+        "grade": 1,
+        "count": 1,
+        "clusterMode": false,
+        "controlBehavior": 0,
+        "strategy": 0
+    }
+]
+```
 
 ### 6. Sentinel熔断器
 #### 6.1 熔断策略
@@ -129,3 +144,19 @@ spring.cloud.sentinel.web-context-unify=false
   经过熔断时长后熔断器会进入探测恢复状态（HALF-OPEN状态），若接下来的一个请求成功完成（没有错误）则结束熔断，否则会再次被熔断
 
 > 其中慢调用最大响应时长RT、异常的比例阈值和异常数模式下的阈值都是用 count 字段进行配置
+
+- 测试熔断策略：慢调用比例，1s内的请求数量大于1且慢调用比例大于0.1则熔断1min
+```json
+[
+    {
+        "count": 1,
+        "grade": 0,
+        "limitApp": "default",
+        "minRequestAmount": 1,
+        "resource": "testSentinelBreak",
+        "slowRatioThreshold": 0.1,
+        "statIntervalMs": 1000,
+        "timeWindow": 60
+    }
+]
+```
