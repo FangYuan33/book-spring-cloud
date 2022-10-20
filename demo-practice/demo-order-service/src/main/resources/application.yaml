@@ -9,6 +9,10 @@ spring:
         server-addr: 101.43.163.223:8848
       username: nacos
       password: nacos
+    sentinel:
+      transport:
+        port: 8719
+        dashboard: 101.43.163.223:8083
 
 seata:
   enabled: true

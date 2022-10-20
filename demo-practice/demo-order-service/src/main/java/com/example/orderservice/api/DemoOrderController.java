@@ -1,8 +1,8 @@
 package com.example.orderservice.api;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.example.orderservice.service.DemoGoodsService;
 import com.example.orderservice.service.DemoShoppingCartService;
-import io.seata.core.exception.TransactionException;
 import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +21,7 @@ public class DemoOrderController {
     @Resource
     private DemoShoppingCartService demoShoppingCartService;
 
+    @SentinelResource("testSentinel")
     @GetMapping("/order/saveOrder")
     public String consumerTest(@RequestParam("cartId") int cartId, @RequestParam("goodsId") int goodsId) {
         // 调用商品服务
