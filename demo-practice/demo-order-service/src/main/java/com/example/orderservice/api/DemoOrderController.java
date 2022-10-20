@@ -33,6 +33,14 @@ public class DemoOrderController {
         return "success! goodsResult={" + goodsResult + "},cartResult={" + cartResult + "}";
     }
 
+    @GetMapping("/order/break")
+    @SentinelResource("testSentinelBreak")
+    public String testBreak() throws InterruptedException {
+        Thread.sleep(3000);
+
+        return "Success";
+    }
+
     @Transactional
     @GlobalTransactional
     @GetMapping("/order/testSeata")

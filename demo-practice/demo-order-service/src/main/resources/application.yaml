@@ -13,6 +13,26 @@ spring:
       transport:
         port: 8719
         dashboard: 101.43.163.223:8083
+      # 每种规则有自己的配置文件
+      datasource:
+        # 限流的配置
+        r1:
+          nacos:
+            username: nacos
+            password: nacos
+            server-addr: 101.43.163.223:8848
+            data-id: DEMO-SENTINEL-LIMIT
+            group-id: DEFAULT_GROUP
+            rule-type: flow
+        # 熔断的配置
+        r2:
+          nacos:
+            username: nacos
+            password: nacos
+            server-addr: 101.43.163.223:8848
+            data-id: DEMO-SENTINEL-BREAK
+            group-id: DEFAULT_GROUP
+            rule-type: degrade
 
 seata:
   enabled: true
