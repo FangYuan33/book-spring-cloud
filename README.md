@@ -32,7 +32,7 @@
 
 ### 3. 服务网关
 
-![img.png](images/img.png)
+![img.png](images/demo/img_0.png)
 
 - 为什么使用服务网关？
   - 统一通信方式，减少客户端的接入难度。可以使用服务网关对外提供RESTful风格的接口，请求到达网关后，由网关组件将请求转发到对应的微服务中
@@ -45,19 +45,19 @@
 
 ### 4. Seata分布式事务控制
 
-![img.png](img.png)
+![img.png](images/demo/img.png)
 
 分布式事务样例：**在订单服务中**，调用商品服务和购物车服务的删除方法，代码中有异常，那么事务执行过程中，任何删除操作都不能执行成功
 
 分别启动商品服务、购物车服务和订单服务，在控制台中可以发现如下日志，可以发现注册了RM和TM两个角色
 
-![img_1.png](img_1.png)
+![img_1.png](images/demo/img_1.png)
 
 也就是说分别注册了**商品服务的RM、TM**和**购物车服务的RM、TM**和**订单服务的RM、TM**
 
 那么什么是RM？什么又是TM？来看看官方文档的介绍图
 
-![img_2.png](img_2.png)
+![img_2.png](images/demo/img_2.png)
 
 - **RM**: Resource Manager，资源管理器。负责管理分支事务处理的资源，与TC交互，控制分支事务提交或回滚
 - **TM**: Transaction Manager，事务管理器。负责定义全局事务的范围，开启、提交或回滚全局事务
@@ -67,10 +67,10 @@
 
 如果以我们的分布式微服务系统为例，订单服务是事务的开端，所以全局事务管理器是订单服务的TM，做图示的话，如下
 
-![img_2.png](未命名绘图.jpg)
+![img_2.png](images/demo/未命名绘图.jpg)
 
 测试这个事务，控制台日志如下，可以发现事务发生异常后已经回滚
-![img_3.png](img_3.png)
+![img_3.png](images/demo/img_3.png)
 
 #### 4.1 AT模式下分布式事务控制原理
 
@@ -96,13 +96,13 @@ TC作为全局事务的管理者，根据事务执行过程中有没有发生异
 ### 5. Sentinel限流
 #### 5.1 限流策略（controlBehavior）
 - **直接流控**: 直接作用于对应资源上，如果访问压力超过阈值，那么后续请求就会被拦截
-![img_4.png](img_4.png)
+![img_4.png](images/demo/img_4.png)
   
 - **关联流控**: 作用于`/order/testRelateApi1`资源如果超过阈值，那么会限制对`/order/testRelateApi2`资源的访问，如下图
-![img_5.png](img_5.png)
+![img_5.png](images/demo/img_5.png)
   
 - **链路流控**: 使用`@SentinelResource`把`/order/testChainApi1`和`/order/testChainApi2`，标记为同一个资源，添加如下配置
-![img_6.png](img_6.png)
+![img_6.png](images/demo/img_6.png)
   如果对该资源的访问超过了阈值，那么会对`/order/testChainApi1`的资源进行限制，但是`/order/testChainApi2`不会受到任何影响
   
 使链路流控生效需要添加如下配置
@@ -162,7 +162,7 @@ spring.cloud.sentinel.web-context-unify=false
 ```
 
 ### 7. 链路追踪
-![img_7.png](img_7.png)
+![img_7.png](images/demo/img_7.png)
 链路追踪为分布式请求调用记录调用链路，方便定位问题。
 
 - 样例日志
