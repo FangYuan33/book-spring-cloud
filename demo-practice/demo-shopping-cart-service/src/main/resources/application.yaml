@@ -35,3 +35,9 @@ seata:
       password: nacos
       group: SEATA_GROUP
       cluster: default
+
+logging:
+  level:
+    com:
+      example:
+        shoppingcartservice: debug

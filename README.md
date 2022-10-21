@@ -160,3 +160,7 @@ spring.cloud.sentinel.web-context-unify=false
     }
 ]
 ```
+
+### 7. 链路追踪
+![img_7.png](img_7.png)
+链路追踪为分布式请求调用记录调用链路，方便定位问题。

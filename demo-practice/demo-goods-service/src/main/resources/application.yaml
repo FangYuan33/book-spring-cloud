@@ -38,3 +38,9 @@ seata:
   client:
     undo:
       log-serialization: kryo
+
+logging:
+  level:
+    com:
+      example:
+        goodsservice: debug
