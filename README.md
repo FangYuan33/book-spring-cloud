@@ -164,3 +164,21 @@ spring.cloud.sentinel.web-context-unify=false
 ### 7. 链路追踪
 ![img_7.png](img_7.png)
 链路追踪为分布式请求调用记录调用链路，方便定位问题。
+
+- 样例日志
+```
+2022-10-21 17:37:29.221 DEBUG [demo-order-service,7cf8d8cb6c32b1b5,7cf8d8cb6c32b1b5] 66763 --- [nio-8092-exec-3] c.e.o.service.DemoGoodsService           : [DemoGoodsService#getGoodsDetail] ---> GET http://demo-goods-service/goods/10938 HTTP/1.1
+2022-10-21 17:37:29.221 DEBUG [demo-order-service,7cf8d8cb6c32b1b5,7cf8d8cb6c32b1b5] 66763 --- [nio-8092-exec-3] c.e.o.service.DemoGoodsService           : [DemoGoodsService#getGoodsDetail] ---> END HTTP (0-byte body)
+2022-10-21 17:37:29.224 DEBUG [demo-order-service,7cf8d8cb6c32b1b5,7cf8d8cb6c32b1b5] 66763 --- [nio-8092-exec-3] c.e.o.service.DemoGoodsService           : [DemoGoodsService#getGoodsDetail] <--- HTTP/1.1 200 (2ms)
+2022-10-21 17:37:29.224 DEBUG [demo-order-service,7cf8d8cb6c32b1b5,7cf8d8cb6c32b1b5] 66763 --- [nio-8092-exec-3] c.e.o.service.DemoGoodsService           : [DemoGoodsService#getGoodsDetail] connection: keep-alive
+2022-10-21 17:37:29.224 DEBUG [demo-order-service,7cf8d8cb6c32b1b5,7cf8d8cb6c32b1b5] 66763 --- [nio-8092-exec-3] c.e.o.service.DemoGoodsService           : [DemoGoodsService#getGoodsDetail] content-length: 45
+2022-10-21 17:37:29.224 DEBUG [demo-order-service,7cf8d8cb6c32b1b5,7cf8d8cb6c32b1b5] 66763 --- [nio-8092-exec-3] c.e.o.service.DemoGoodsService           : [DemoGoodsService#getGoodsDetail] content-type: text/plain;charset=UTF-8
+2022-10-21 17:37:29.224 DEBUG [demo-order-service,7cf8d8cb6c32b1b5,7cf8d8cb6c32b1b5] 66763 --- [nio-8092-exec-3] c.e.o.service.DemoGoodsService           : [DemoGoodsService#getGoodsDetail] date: Fri, 21 Oct 2022 09:37:29 GMT
+2022-10-21 17:37:29.224 DEBUG [demo-order-service,7cf8d8cb6c32b1b5,7cf8d8cb6c32b1b5] 66763 --- [nio-8092-exec-3] c.e.o.service.DemoGoodsService           : [DemoGoodsService#getGoodsDetail] keep-alive: timeout=60
+2022-10-21 17:37:29.224 DEBUG [demo-order-service,7cf8d8cb6c32b1b5,7cf8d8cb6c32b1b5] 66763 --- [nio-8092-exec-3] c.e.o.service.DemoGoodsService           : [DemoGoodsService#getGoodsDetail] 
+2022-10-21 17:37:29.224 DEBUG [demo-order-service,7cf8d8cb6c32b1b5,7cf8d8cb6c32b1b5] 66763 --- [nio-8092-exec-3] c.e.o.service.DemoGoodsService           : [DemoGoodsService#getGoodsDetail] 商品10938，当前服务的端口号为8091
+2022-10-21 17:37:29.224 DEBUG [demo-order-service,7cf8d8cb6c32b1b5,7cf8d8cb6c32b1b5] 66763 --- [nio-8092-exec-3] c.e.o.service.DemoGoodsService           : [DemoGoodsService#getGoodsDetail] <--- END HTTP (45-byte body)
+```
+其中日志三项`demo-order-service,7cf8d8cb6c32b1b5,7cf8d8cb6c32b1b5`分别为服务名称，Trace ID和Span ID
+- **Trace ID**: 标记请求链路的全局唯一ID，用于标记出整个请求链路
+- **Span ID**: 请求链路中的每个微服务都会生成一个不同的Span ID。一个TraceId拥有多个SpanId，而SpanId只能隶属于某一个TraceId
