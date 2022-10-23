@@ -10,7 +10,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @RestController
@@ -53,11 +52,10 @@ public class AdminUserController {
         return Result.success();
     }
 
-    @GetMapping("/logout")
-    public String logout(HttpServletRequest request) {
-        request.getSession().removeAttribute("loginUserId");
-        request.getSession().removeAttribute("loginUser");
-        request.getSession().removeAttribute("errorMsg");
-        return "admin/login";
+    @PostMapping("/logout")
+    @ApiOperation(value = "登出接口")
+    public <T> Result<T> logout(@RequestBody String token) {
+        adminUserService.logout(token);
+        return Result.success();
     }
 }

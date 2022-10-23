@@ -23,3 +23,7 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+  # redis
+  redis:
+    host: 101.43.163.223
+    password: Turing

@@ -23,4 +23,9 @@ public interface AdminUserService {
      * @param param 其中ID必填
      */
     void updateAdminUser(UpdateAdminParam param);
+
+    /**
+     * 登出
+     */
+    void logout(String token);
 }

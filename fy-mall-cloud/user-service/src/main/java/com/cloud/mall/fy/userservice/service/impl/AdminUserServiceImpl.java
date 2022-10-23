@@ -2,7 +2,9 @@ package com.cloud.mall.fy.userservice.service.impl;
 
 import com.alibaba.cloud.commons.lang.StringUtils;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.cloud.mall.fy.common.cache.CacheService;
 import com.cloud.mall.fy.common.exception.BusinessException;
+import com.cloud.mall.fy.common.utils.TokenUtil;
 import com.cloud.mall.fy.userservice.controller.param.UpdateAdminParam;
 import com.cloud.mall.fy.userservice.dao.AdminUserMapper;
 import com.cloud.mall.fy.userservice.entity.AdminUser;
@@ -15,12 +17,29 @@ import javax.annotation.Resource;
 @Service
 public class AdminUserServiceImpl implements AdminUserService {
 
+    /**
+     * token存在时间 12H
+     */
+    private static final Long TOKEN_EXIST_TIME = 43200L;
+
     @Resource
     private AdminUserMapper adminUserMapper;
+    @Resource
+    private CacheService cacheService;
 
     @Override
     public AdminUser login(String userName, String password) {
-        return adminUserMapper.login(userName, MD5Util.MD5Encode(password, "UTF-8"));
+        AdminUser adminUser = adminUserMapper.login(userName, MD5Util.MD5Encode(password, "UTF-8"));
+
+        if (adminUser != null) {
+            // 添加token缓存
+            String token = TokenUtil.generateToken(adminUser.getId());
+            cacheService.setValue(token, adminUser.getId(), TOKEN_EXIST_TIME);
+
+            return adminUser;
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -51,5 +70,10 @@ public class AdminUserServiceImpl implements AdminUserService {
                 .eq(AdminUser::getId, param.getId());
 
         adminUserMapper.update(null, updateWrapper);
+    }
+
+    @Override
+    public void logout(String token) {
+        cacheService.deleteByKey(token);
     }
 }
