@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.mall.fy.userservice.dao.AdminUserMapper">
+  <resultMap id="BaseResultMap" type="com.cloud.mall.fy.userservice.entity.AdminUser">
+    <id column="admin_user_id" jdbcType="INTEGER" property="id" />
+    <result column="login_user_name" jdbcType="VARCHAR" property="loginUserName" />
+    <result column="login_password" jdbcType="VARCHAR" property="loginPassword" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, login_user_name, login_password, nick_name
+  </sql>
+
+  <select id="login" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from admin_user
+    where login_user_name = #{userName, jdbcType=VARCHAR} AND login_password=#{password, jdbcType=VARCHAR}
+  </select>
+
+</mapper>
