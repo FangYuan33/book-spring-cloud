@@ -6,6 +6,7 @@
     <artifactId>fy-mall-cloud</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>fy-mall-cloud</name>
+    <packaging>pom</packaging>
     <description>fy-mall-cloud</description>
 
     <properties>
