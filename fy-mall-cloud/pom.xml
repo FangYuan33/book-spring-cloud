@@ -9,6 +9,12 @@
     <packaging>pom</packaging>
     <description>fy-mall-cloud</description>
 
+    <modules>
+        <module>common</module>
+        <module>gateway-admin</module>
+        <module>user-service</module>
+    </modules>
+
     <properties>
         <spring.boot.version>2.6.3</spring.boot.version>
         <spring.cloud.dependencies.version>2021.0.1</spring.cloud.dependencies.version>
@@ -16,6 +22,11 @@
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <mybatis.plus.version>3.5.2</mybatis.plus.version>
+        <swagger.version>3.0.0</swagger.version>
+        <lombok.version>1.18.8</lombok.version>
+        <druid.version>1.1.21</druid.version>
+        <fastjson.version>2.0.7.graal</fastjson.version>
     </properties>
 
     <dependencyManagement>
@@ -54,6 +65,37 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-test</artifactId>
                 <version>${spring.boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis.plus.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-boot-starter</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
