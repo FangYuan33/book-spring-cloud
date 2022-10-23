@@ -6,13 +6,13 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 101.43.163.223:8848
+        server-addr: localhost:8848
       username: nacos
       password: nacos
     sentinel:
       transport:
         port: 8719
-        dashboard: 101.43.163.223:8083
+        dashboard: localhost:8083
       # 每种规则有自己的配置文件
       datasource:
         # 限流的配置
@@ -20,7 +20,7 @@ spring:
           nacos:
             username: nacos
             password: nacos
-            server-addr: 101.43.163.223:8848
+            server-addr: localhost:8848
             data-id: DEMO-SENTINEL-LIMIT
             group-id: DEFAULT_GROUP
             rule-type: flow
@@ -29,7 +29,7 @@ spring:
           nacos:
             username: nacos
             password: nacos
-            server-addr: 101.43.163.223:8848
+            server-addr: localhost:8848
             data-id: DEMO-SENTINEL-BREAK
             group-id: DEFAULT_GROUP
             rule-type: degrade
@@ -41,7 +41,7 @@ spring:
       # 指每秒最多采集量，超出部分将直接抛弃
       rate: 500
   zipkin:
-    base-url: http://101.43.163.223:9411
+    base-url: http://localhost:9411
 
 seata:
   enabled: true
@@ -53,7 +53,7 @@ seata:
     type: nacos
     nacos:
       application: seata-server
-      server-addr: 101.43.163.223:8848
+      server-addr: localhost:8848
       username: nacos
       password: nacos
       group: SEATA_GROUP
