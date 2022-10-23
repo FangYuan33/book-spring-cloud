@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: user-service
+  cloud:
+    nacos:
+      config:
+        server-addr: 101.43.163.223:8848
+        file-extension: yaml
+        group: FY_MALL_GROUP
