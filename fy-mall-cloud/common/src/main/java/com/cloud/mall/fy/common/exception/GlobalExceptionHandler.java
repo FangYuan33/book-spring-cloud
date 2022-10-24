@@ -1,7 +1,6 @@
-package com.cloud.mall.fy.userservice.config;
+package com.cloud.mall.fy.common.exception;
 
 import com.cloud.mall.fy.common.dto.Result;
-import com.cloud.mall.fy.common.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
