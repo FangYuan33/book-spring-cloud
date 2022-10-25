@@ -1,5 +1,6 @@
 package com.cloud.mall.fy.userservice.controller;
 
+import com.cloud.mall.fy.common.annotation.Log;
 import com.cloud.mall.fy.common.dto.Result;
 import com.cloud.mall.fy.userservice.controller.param.AdminLoginParam;
 import com.cloud.mall.fy.userservice.controller.param.UpdateAdminParam;
@@ -20,6 +21,7 @@ public class AdminUserController {
     @Resource
     private AdminUserService adminUserService;
 
+    @Log
     @PostMapping(value = "/login")
     @ApiOperation(value = "登录接口", notes = "返回token")
     public <T> Result<T> login(@RequestBody @Valid AdminLoginParam adminLoginParam) {
@@ -32,6 +34,7 @@ public class AdminUserController {
         }
     }
 
+    @Log
     @PostMapping("/profile/{adminUserId}")
     @ApiOperation(value = "获取管理员信息接口")
     public Result<AdminUser> profile(@PathVariable("adminUserId") Long adminUserId) {
@@ -44,6 +47,7 @@ public class AdminUserController {
         }
     }
 
+    @Log
     @PostMapping("/profile/update")
     @ApiOperation(value = "修改管理员信息接口")
     public <T> Result<T> passwordUpdate(@RequestBody UpdateAdminParam param) {
@@ -52,6 +56,7 @@ public class AdminUserController {
         return Result.success();
     }
 
+    @Log
     @PostMapping("/logout")
     @ApiOperation(value = "登出接口")
     public <T> Result<T> logout(@RequestBody String token) {
