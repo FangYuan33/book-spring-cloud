@@ -13,4 +13,9 @@ public interface CacheService {
      * 根据key删除缓存
      */
     void deleteByKey(String key);
+
+    /**
+     * 根据key获取值
+     */
+    Object getByKey(String key);
 }

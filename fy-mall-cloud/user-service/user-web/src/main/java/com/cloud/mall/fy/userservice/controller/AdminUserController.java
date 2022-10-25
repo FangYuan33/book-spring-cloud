@@ -63,4 +63,11 @@ public class AdminUserController {
         adminUserService.logout(token);
         return Result.success();
     }
+
+    @Log
+    @PostMapping("/{token}")
+    @ApiOperation(value = "根据token获取管理员信息接口")
+    public Result<AdminUser> getByToken(@PathVariable("token") String token) {
+        return Result.success(adminUserService.getByToken(token));
+    }
 }

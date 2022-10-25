@@ -76,4 +76,11 @@ public class AdminUserServiceImpl implements AdminUserService {
     public void logout(String token) {
         cacheService.deleteByKey(token);
     }
+
+    @Override
+    public AdminUser getByToken(String token) {
+        Long userId = (Long) cacheService.getByKey(token);
+
+        return adminUserMapper.selectById(userId);
+    }
 }

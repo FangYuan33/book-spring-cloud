@@ -28,4 +28,9 @@ public interface AdminUserService {
      * 登出
      */
     void logout(String token);
+
+    /**
+     * 根据token获取管理员用户信息
+     */
+    AdminUser getByToken(String token);
 }

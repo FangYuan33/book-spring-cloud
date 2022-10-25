@@ -22,4 +22,9 @@ public class CacheServiceImpl implements CacheService {
     public void deleteByKey(String key) {
         redisTemplate.delete(key);
     }
+
+    @Override
+    public Object getByKey(String key) {
+        return redisTemplate.opsForValue().get(key);
+    }
 }
