@@ -1,6 +1,7 @@
 package com.cloud.mall.fy.userservice.controller;
 
 import com.cloud.mall.fy.common.annotation.Log;
+import com.cloud.mall.fy.common.annotation.TokenToAdminUser;
 import com.cloud.mall.fy.common.dto.Result;
 import com.cloud.mall.fy.userservice.controller.param.AdminLoginParam;
 import com.cloud.mall.fy.userservice.controller.param.UpdateAdminParam;
@@ -37,7 +38,7 @@ public class AdminUserController {
     @Log
     @PostMapping("/profile/{adminUserId}")
     @ApiOperation(value = "获取管理员信息接口")
-    public Result<AdminUser> profile(@PathVariable("adminUserId") Long adminUserId) {
+    public Result<AdminUser> profile(@TokenToAdminUser @PathVariable("adminUserId") Long adminUserId) {
         AdminUser adminUser = adminUserService.getUserDetailById(adminUserId);
 
         if (adminUser != null) {
