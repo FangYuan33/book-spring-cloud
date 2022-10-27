@@ -26,7 +26,7 @@ public class TokenToAdminUserMethodArgumentResolver implements HandlerMethodArgu
      */
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        return parameter.hasMethodAnnotation(TokenToAdminUser.class);
+        return parameter.hasParameterAnnotation(TokenToAdminUser.class);
     }
 
     @SuppressWarnings("all")
