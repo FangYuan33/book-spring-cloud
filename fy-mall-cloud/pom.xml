@@ -13,6 +13,7 @@
         <module>common</module>
         <module>gateway-admin</module>
         <module>user-service</module>
+        <module>goods-service</module>
     </modules>
 
     <properties>
