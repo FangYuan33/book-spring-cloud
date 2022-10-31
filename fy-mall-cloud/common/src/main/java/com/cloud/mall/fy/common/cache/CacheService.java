@@ -18,4 +18,9 @@ public interface CacheService {
      * 根据key获取值
      */
     Object getByKey(String key);
+
+    /**
+     * 根据key判断缓存是否存在
+     */
+    boolean existKey(String key);
 }

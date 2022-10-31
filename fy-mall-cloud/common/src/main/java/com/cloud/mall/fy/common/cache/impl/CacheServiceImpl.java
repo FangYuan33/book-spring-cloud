@@ -27,4 +27,10 @@ public class CacheServiceImpl implements CacheService {
     public Object getByKey(String key) {
         return redisTemplate.opsForValue().get(key);
     }
+
+    @Override
+    @SuppressWarnings("all")
+    public boolean existKey(String key) {
+        return redisTemplate.persist(key);
+    }
 }
