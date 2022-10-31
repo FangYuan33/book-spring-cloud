@@ -29,22 +29,26 @@ import java.util.List;
 @Component
 public class ValidMallUserTokenGlobalFilter implements GlobalFilter {
 
+    /**
+     * 忽略鉴权配置的URL们
+     */
+    private static final List<String> IGNORE_URLS;
+
+    static {
+        IGNORE_URLS = Collections.singletonList("/user/admin/login");
+    }
+
     @Autowired
     private CacheService cacheService;
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         // 跳过鉴权的访问路径: 登录
-        List<String> ignoreUrls = Collections.singletonList("/user/admin/login");
-        if (ignoreUrls.contains(exchange.getRequest().getURI().getPath())) {
+        if (IGNORE_URLS.contains(exchange.getRequest().getURI().getPath())) {
             return chain.filter(exchange);
         }
 
-        // 判断headers非空
         HttpHeaders headers = exchange.getRequest().getHeaders();
-        if (headers.isEmpty()) {
-            return wrapErrorResponse(exchange);
-        }
 
         // 校验token存在
         String token = headers.getFirst("token");
