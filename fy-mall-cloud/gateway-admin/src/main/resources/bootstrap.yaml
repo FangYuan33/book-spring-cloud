@@ -12,3 +12,10 @@ spring:
           - data-id: common-nacos.yaml
             group: FY_MALL_GROUP
             refresh: true
+  # classpath 下包含web-mvc 需添加该配置
+  main:
+    web-application-type: reactive
+  # redis
+  redis:
+    host: 101.43.163.223
+    password: Turing
