@@ -10,7 +10,7 @@ public class BaseEntity {
     /**
      * 主键
      */
-    protected Integer id;
+    protected Long id;
 
     protected Integer createUser;
 
