@@ -1,14 +1,13 @@
 package com.cloud.mall.fy.goodsservice.service.impl;
 
 import com.cloud.mall.fy.common.enums.CategoryLevelEnum;
+import com.cloud.mall.fy.common.utils.BeanUtils;
 import com.cloud.mall.fy.goodsservice.controller.param.IndexCategoryVO;
 import com.cloud.mall.fy.goodsservice.controller.param.SecondLevelCategoryVO;
 import com.cloud.mall.fy.goodsservice.controller.param.ThirdLevelCategoryVO;
 import com.cloud.mall.fy.goodsservice.dao.GoodsCategoryMapper;
 import com.cloud.mall.fy.goodsservice.entity.GoodsCategory;
 import com.cloud.mall.fy.goodsservice.service.GoodsCategoryService;
-import org.graalvm.util.CollectionsUtil;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -39,30 +38,60 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService {
         List<GoodsCategory> thirdLevelCategories = goodsCategoryMapper.selectByLevelAndInParentIds(
                 CategoryLevelEnum.LEVEL_THREE.getLevel(), secondIds);
 
+        // 二级分类视图
+        List<SecondLevelCategoryVO> secondLevelCategoryVOList =
+                getSecondLevelCategoryVOWithThirdLevelCategory(thirdLevelCategories, secondLevelCategories);
+
+        // 处理并返回一级分类视图
+        return getIndexCategoryVOWithSecondLevelCategory(secondLevelCategoryVOList, firstLeverCategories);
+    }
+
+    /**
+     * 将对应的三级分类挂到所属的二级分类并返回二级分类视图
+     */
+    private List<SecondLevelCategoryVO> getSecondLevelCategoryVOWithThirdLevelCategory(
+                                                                List<GoodsCategory> thirdLevelCategories,
+                                                                List<GoodsCategory> secondLevelCategories) {
+        // 三级分类根据二级父类分类
         Map<Long, List<GoodsCategory>> thirdMap = thirdLevelCategories.stream()
                 .collect(Collectors.groupingBy(GoodsCategory::getParentId));
-        List<ThirdLevelCategoryVO> thirdLevelCategoryVOS = new ArrayList<>();
-        for (Long secondId : thirdMap.keySet()) {
-            List<GoodsCategory> thirdCategories = thirdMap.get(secondId);
-            for (GoodsCategory thirdCategory : thirdCategories) {
-                ThirdLevelCategoryVO temp = new ThirdLevelCategoryVO();
-                BeanUtils.copyProperties(thirdCategory, temp);
-                thirdLevelCategoryVOS.add(temp);
-            }
-        }
 
+        // 处理二级分类，将二级分类下挂对应的三级分类
         List<SecondLevelCategoryVO> secondLevelCategoryVOS = new ArrayList<>();
-        // 处理二级分类
         for (GoodsCategory secondLevelCategory : secondLevelCategories) {
-            SecondLevelCategoryVO secondLevelCategoryVO = new SecondLevelCategoryVO();
-            BeanUtils.copyProperties(secondLevelCategory, secondLevelCategoryVO);
-            // 如果该二级分类下有数据则放入 secondLevelCategoryVOS 对象中
+            SecondLevelCategoryVO secondLevelCategoryVO =
+                    BeanUtils.copyProperties(secondLevelCategory, SecondLevelCategoryVO.class);
+
+            // 如果该二级分类下有三级分类数据则处理
             if (thirdMap.containsKey(secondLevelCategory.getId())) {
                 // 根据二级分类的id取出thirdLevelCategoryMap分组中的三级分类list
                 List<GoodsCategory> tempGoodsCategories = thirdMap.get(secondLevelCategory.getId());
-                secondLevelCategoryVO.setThirdLevelCategoryVOS((BeanUtils.copyList(tempGoodsCategories, ThirdLevelCategoryVO.class)));
-                secondLevelCategoryVOS.add(secondLevelCategoryVO);
+                secondLevelCategoryVO.setThirdLevelCategoryVOS(
+                        BeanUtils.copyList(tempGoodsCategories, ThirdLevelCategoryVO.class));
             }
+            secondLevelCategoryVOS.add(secondLevelCategoryVO);
         }
+
+        return secondLevelCategoryVOS;
+    }
+
+    private ArrayList<IndexCategoryVO> getIndexCategoryVOWithSecondLevelCategory(
+                                                                List<SecondLevelCategoryVO> secondLevelCategoryVOList,
+                                                                List<GoodsCategory> firstLeverCategories) {
+        // 处理一级分类，对应挂靠它的所属二级分类
+        ArrayList<IndexCategoryVO> indexCategoryVOS = new ArrayList<>();
+        Map<Long, List<SecondLevelCategoryVO>> secondMap = secondLevelCategoryVOList.stream()
+                .collect(Collectors.groupingBy(SecondLevelCategoryVO::getParentId));
+        for (GoodsCategory firstLeverCategory : firstLeverCategories) {
+            IndexCategoryVO indexCategoryVO = BeanUtils.copyProperties(firstLeverCategory, IndexCategoryVO.class);
+
+            if (secondMap.containsKey(firstLeverCategory.getId())) {
+                List<SecondLevelCategoryVO> tempSecondCategories = secondMap.get(firstLeverCategory.getId());
+                indexCategoryVO.setSecondLevelCategoryVOS(tempSecondCategories);
+            }
+            indexCategoryVOS.add(indexCategoryVO);
+        }
+
+        return indexCategoryVOS;
     }
 }

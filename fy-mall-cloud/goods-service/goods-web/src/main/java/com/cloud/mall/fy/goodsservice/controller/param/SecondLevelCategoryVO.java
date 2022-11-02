@@ -13,7 +13,7 @@ import java.util.List;
 public class SecondLevelCategoryVO implements Serializable {
 
     @ApiModelProperty("当前二级分类id")
-    private Long categoryId;
+    private Long id;
 
     @ApiModelProperty("父级分类id")
     private Long parentId;

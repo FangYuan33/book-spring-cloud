@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cloud.mall.fy.goodsservice.dao.GoodsCategoryMapper">
     <resultMap id="BaseResultMap" type="com.cloud.mall.fy.goodsservice.entity.GoodsCategory">
-        <id column="category_id" jdbcType="BIGINT" property="id"/>
+        <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="category_level" jdbcType="TINYINT" property="categoryLevel"/>
         <result column="parent_id" jdbcType="BIGINT" property="parentId"/>
         <result column="category_name" jdbcType="VARCHAR" property="categoryName"/>
@@ -14,7 +14,7 @@
         <result column="update_user" jdbcType="INTEGER" property="updateUser"/>
     </resultMap>
     <sql id="Base_Column_List">
-    category_id, category_level, parent_id, category_name, category_rank, is_deleted,
+    id, category_level, parent_id, category_name, category_rank, is_deleted,
     create_time, create_user, update_time, update_user
     </sql>
 
