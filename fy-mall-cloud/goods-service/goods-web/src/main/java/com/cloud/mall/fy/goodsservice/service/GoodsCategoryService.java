@@ -1,6 +1,6 @@
 package com.cloud.mall.fy.goodsservice.service;
 
-import com.cloud.mall.fy.goodsservice.controller.param.IndexCategoryVO;
+import com.cloud.mall.fy.goodsservice.controller.param.FirstLevelCategoryVO;
 
 import java.util.List;
 
@@ -12,6 +12,6 @@ public interface GoodsCategoryService {
     /**
      * 获取首页分类数据
      */
-    List<IndexCategoryVO> getCategoriesForIndex();
+    List<FirstLevelCategoryVO> getCategoriesForIndex();
 
 }

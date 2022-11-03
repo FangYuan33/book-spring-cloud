@@ -2,7 +2,7 @@ package com.cloud.mall.fy.goodsservice.controller;
 
 import com.cloud.mall.fy.common.dto.Result;
 import com.cloud.mall.fy.common.exception.BusinessException;
-import com.cloud.mall.fy.goodsservice.controller.param.IndexCategoryVO;
+import com.cloud.mall.fy.goodsservice.controller.param.FirstLevelCategoryVO;
 import com.cloud.mall.fy.goodsservice.service.GoodsCategoryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -24,8 +24,8 @@ public class GoodsCategoryController {
 
     @GetMapping("/listAll")
     @ApiOperation(value = "获取分类数据", notes = "分类页面使用")
-    public Result<List<IndexCategoryVO>> getCategories() {
-        List<IndexCategoryVO> categories = goodsCategoryService.getCategoriesForIndex();
+    public Result<List<FirstLevelCategoryVO>> getCategories() {
+        List<FirstLevelCategoryVO> categories = goodsCategoryService.getCategoriesForIndex();
 
         if (CollectionUtils.isEmpty(categories)) {
             throw new BusinessException("未获取到分类数据");

@@ -3,14 +3,13 @@ package com.cloud.mall.fy.goodsservice.controller.param;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
  * 首页分类数据VO
  */
 @Data
-public class IndexCategoryVO implements Serializable {
+public class FirstLevelCategoryVO {
 
     @ApiModelProperty("当前一级分类id")
     private Long id;
