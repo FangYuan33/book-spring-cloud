@@ -1,4 +1,4 @@
-package com.cloud.mall.fy.goodsservice.controller.param;
+package com.cloud.mall.fy.goodsservice.controller.vo;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

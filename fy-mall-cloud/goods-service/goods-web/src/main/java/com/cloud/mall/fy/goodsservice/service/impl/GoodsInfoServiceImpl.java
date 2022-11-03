@@ -3,7 +3,7 @@ package com.cloud.mall.fy.goodsservice.service.impl;
 import com.cloud.mall.fy.common.enums.GoodsSellStatusEnum;
 import com.cloud.mall.fy.common.exception.BusinessException;
 import com.cloud.mall.fy.common.utils.BeanUtils;
-import com.cloud.mall.fy.goodsservice.controller.param.GoodsDetailVO;
+import com.cloud.mall.fy.goodsservice.controller.vo.GoodsDetailVO;
 import com.cloud.mall.fy.goodsservice.dao.GoodsInfoMapper;
 import com.cloud.mall.fy.goodsservice.entity.GoodsInfo;
 import com.cloud.mall.fy.goodsservice.service.GoodsInfoService;

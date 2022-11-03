@@ -1,7 +1,7 @@
 package com.cloud.mall.fy.goodsservice.controller;
 
 import com.cloud.mall.fy.common.dto.Result;
-import com.cloud.mall.fy.goodsservice.controller.param.GoodsDetailVO;
+import com.cloud.mall.fy.goodsservice.controller.vo.GoodsDetailVO;
 import com.cloud.mall.fy.goodsservice.service.GoodsInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

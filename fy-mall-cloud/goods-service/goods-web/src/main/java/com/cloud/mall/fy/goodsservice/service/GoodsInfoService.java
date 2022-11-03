@@ -1,6 +1,6 @@
 package com.cloud.mall.fy.goodsservice.service;
 
-import com.cloud.mall.fy.goodsservice.controller.param.GoodsDetailVO;
+import com.cloud.mall.fy.goodsservice.controller.vo.GoodsDetailVO;
 
 /**
  * 商品信息服务层

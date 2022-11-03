@@ -2,9 +2,9 @@ package com.cloud.mall.fy.goodsservice.service.impl;
 
 import com.cloud.mall.fy.common.enums.CategoryLevelEnum;
 import com.cloud.mall.fy.common.utils.BeanUtils;
-import com.cloud.mall.fy.goodsservice.controller.param.FirstLevelCategoryVO;
-import com.cloud.mall.fy.goodsservice.controller.param.SecondLevelCategoryVO;
-import com.cloud.mall.fy.goodsservice.controller.param.ThirdLevelCategoryVO;
+import com.cloud.mall.fy.goodsservice.controller.vo.FirstLevelCategoryVO;
+import com.cloud.mall.fy.goodsservice.controller.vo.SecondLevelCategoryVO;
+import com.cloud.mall.fy.goodsservice.controller.vo.ThirdLevelCategoryVO;
 import com.cloud.mall.fy.goodsservice.dao.GoodsCategoryMapper;
 import com.cloud.mall.fy.goodsservice.entity.GoodsCategory;
 import com.cloud.mall.fy.goodsservice.service.GoodsCategoryService;

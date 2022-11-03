@@ -2,7 +2,7 @@ package com.cloud.mall.fy.goodsservice.controller;
 
 import com.cloud.mall.fy.common.dto.Result;
 import com.cloud.mall.fy.common.exception.BusinessException;
-import com.cloud.mall.fy.goodsservice.controller.param.FirstLevelCategoryVO;
+import com.cloud.mall.fy.goodsservice.controller.vo.FirstLevelCategoryVO;
 import com.cloud.mall.fy.goodsservice.service.GoodsCategoryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

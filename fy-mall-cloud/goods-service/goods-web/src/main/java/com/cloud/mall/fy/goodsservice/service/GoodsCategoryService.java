@@ -1,6 +1,6 @@
 package com.cloud.mall.fy.goodsservice.service;
 
-import com.cloud.mall.fy.goodsservice.controller.param.FirstLevelCategoryVO;
+import com.cloud.mall.fy.goodsservice.controller.vo.FirstLevelCategoryVO;
 
 import java.util.List;
 
