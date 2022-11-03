@@ -2,6 +2,7 @@ package com.cloud.mall.fy.goodsservice.service.impl;
 
 import com.cloud.mall.fy.common.enums.CategoryLevelEnum;
 import com.cloud.mall.fy.common.utils.BeanUtils;
+import com.cloud.mall.fy.goodsservice.controller.param.GoodsCategoryAddParam;
 import com.cloud.mall.fy.goodsservice.controller.vo.FirstLevelCategoryVO;
 import com.cloud.mall.fy.goodsservice.controller.vo.SecondLevelCategoryVO;
 import com.cloud.mall.fy.goodsservice.controller.vo.ThirdLevelCategoryVO;
@@ -93,5 +94,11 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService {
         }
 
         return firstLevelCategoryVOS;
+    }
+
+    @Override
+    public void save(GoodsCategoryAddParam goodsCategoryAddParam) {
+        GoodsCategory goodsCategory = BeanUtils.copyProperties(goodsCategoryAddParam, GoodsCategory.class);
+        goodsCategoryMapper.insert(goodsCategory);
     }
 }
