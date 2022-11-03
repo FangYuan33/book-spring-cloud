@@ -66,5 +66,5 @@ public class GoodsInfo extends BaseEntity {
     /**
      * 商品上架状态 1-上架 0-下架
      */
-    private Byte goodsSellStatus;
+    private Integer goodsSellStatus;
 }
