@@ -1,8 +1,10 @@
 package com.cloud.mall.fy.goodsservice.service.impl;
 
 import com.cloud.mall.fy.common.enums.CategoryLevelEnum;
+import com.cloud.mall.fy.common.exception.BusinessException;
 import com.cloud.mall.fy.common.utils.BeanUtils;
 import com.cloud.mall.fy.goodsservice.controller.param.GoodsCategoryAddParam;
+import com.cloud.mall.fy.goodsservice.controller.param.GoodsCategoryEditParam;
 import com.cloud.mall.fy.goodsservice.controller.vo.FirstLevelCategoryVO;
 import com.cloud.mall.fy.goodsservice.controller.vo.SecondLevelCategoryVO;
 import com.cloud.mall.fy.goodsservice.controller.vo.ThirdLevelCategoryVO;
@@ -10,6 +12,7 @@ import com.cloud.mall.fy.goodsservice.dao.GoodsCategoryMapper;
 import com.cloud.mall.fy.goodsservice.entity.GoodsCategory;
 import com.cloud.mall.fy.goodsservice.service.GoodsCategoryService;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -100,5 +103,29 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService {
     public void save(GoodsCategoryAddParam goodsCategoryAddParam) {
         GoodsCategory goodsCategory = BeanUtils.copyProperties(goodsCategoryAddParam, GoodsCategory.class);
         goodsCategoryMapper.insert(goodsCategory);
+    }
+
+    @Override
+    public void edit(GoodsCategoryEditParam goodsCategoryEditParam) {
+        GoodsCategory goodsCategory = BeanUtils.copyProperties(goodsCategoryEditParam, GoodsCategory.class);
+        goodsCategoryMapper.updateById(goodsCategory);
+    }
+
+    @Override
+    public void deleteByIds(String ids) {
+        if (StringUtils.hasText(ids)) {
+            String[] categoryIds = ids.split(",");
+
+            for (String categoryId : categoryIds) {
+                goodsCategoryMapper.deleteById(categoryId);
+            }
+        } else {
+            throw new BusinessException("参数异常");
+        }
+    }
+
+    @Override
+    public GoodsCategory getById(Long id) {
+        return goodsCategoryMapper.selectById(id);
     }
 }
