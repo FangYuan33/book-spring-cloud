@@ -47,6 +47,7 @@
 /Users/wangyilong/GitHub/spring-cloud-practice/ruoyi-common/ruoyi-common-core/src/main/java/com/ruoyi/common/core/constant/TokenConstants.java
 /Users/wangyilong/GitHub/spring-cloud-practice/ruoyi-common/ruoyi-common-core/src/main/java/com/ruoyi/common/core/utils/html/HTMLFilter.java
 /Users/wangyilong/GitHub/spring-cloud-practice/ruoyi-common/ruoyi-common-core/src/main/java/com/ruoyi/common/core/utils/html/EscapeUtil.java
+/Users/wangyilong/GitHub/spring-cloud-practice/ruoyi-common/ruoyi-common-core/src/main/java/com/ruoyi/common/core/utils/MD5Util.java
 /Users/wangyilong/GitHub/spring-cloud-practice/ruoyi-common/ruoyi-common-core/src/main/java/com/ruoyi/common/core/web/page/TableDataInfo.java
 /Users/wangyilong/GitHub/spring-cloud-practice/ruoyi-common/ruoyi-common-core/src/main/java/com/ruoyi/common/core/web/page/TableSupport.java
 /Users/wangyilong/GitHub/spring-cloud-practice/ruoyi-common/ruoyi-common-core/src/main/java/com/ruoyi/common/core/exception/DemoModeException.java

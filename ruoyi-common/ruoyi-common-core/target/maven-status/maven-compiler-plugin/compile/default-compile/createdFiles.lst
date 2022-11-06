@@ -11,6 +11,7 @@ com/ruoyi/common/core/xss/XssValidator.class
 com/ruoyi/common/core/exception/job/TaskException$Code.class
 com/ruoyi/common/core/annotation/Excel$ColumnType.class
 com/ruoyi/common/core/utils/DateUtils.class
+com/ruoyi/common/core/utils/MD5Util.class
 com/ruoyi/common/core/exception/PreAuthorizeException.class
 com/ruoyi/common/core/text/StrFormatter.class
 com/ruoyi/common/core/constant/TokenConstants.class
