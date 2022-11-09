@@ -1,17 +1,22 @@
 spring:
   application:
     name: user-service
+  profiles:
+    # 环境配置
+    active: dev
   cloud:
     nacos:
       config:
         server-addr: 101.43.163.223:8848
         file-extension: yaml
         group: FY_MALL_GROUP
-        # 通用配置文件
+        # 共享配置
         shared-configs:
-          - data-id: common-nacos.yaml
-            group: FY_MALL_GROUP
-            refresh: true
+          - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+      discovery:
+        server-addr: 101.43.163.223:8848
+        username: nacos
+        password: nacos
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     name: fy-mall-cloud-user-service
@@ -33,4 +38,4 @@ swagger:
   basePackage: com.cloud.mall.fy.userservice.controller
   title: fy-mall-cloud-user-service
   description: swagger
-  version: 3.0
+  version: 2.0

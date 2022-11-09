@@ -3,6 +3,7 @@ package com.cloud.mall.fy.userservice.controller;
 import com.cloud.mall.fy.userservice.controller.param.UpdateAdminParam;
 import com.cloud.mall.fy.userservice.entity.AdminUser;
 import com.cloud.mall.fy.userservice.service.AdminUserService;
+import com.ruoyi.common.core.web.controller.BaseController;
 import com.ruoyi.common.core.web.domain.AjaxResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -13,7 +14,7 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping("/user/admin")
 @Api(value = "v1", tags = "管理员操作相关接口")
-public class AdminUserController {
+public class AdminUserController extends BaseController {
 
     @Resource
     private AdminUserService adminUserService;
