@@ -1,6 +1,9 @@
 package com.ruoyi.system.controller;
 
 import java.util.List;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -30,6 +33,7 @@ import com.ruoyi.system.service.ISysDeptService;
  */
 @RestController
 @RequestMapping("/dept")
+@Api(value = "v1", tags = "系统部门相关接口")
 public class SysDeptController extends BaseController
 {
     @Autowired
@@ -40,6 +44,7 @@ public class SysDeptController extends BaseController
      */
     @RequiresPermissions("system:dept:list")
     @GetMapping("/list")
+    @ApiOperation(value = "部门列表接口")
     public AjaxResult list(SysDept dept)
     {
         List<SysDept> depts = deptService.selectDeptList(dept);
