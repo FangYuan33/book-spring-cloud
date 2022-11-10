@@ -81,8 +81,10 @@ spring:
             - StripPrefix=1
         - id: goods-service
           uri: lb://goods-service
+          # 断言，符合则跳转，/goods会被下边的配置裁剪掉
           predicates:
             - Path=/goods/**
+          # 过滤器 StringPrefix:1 裁剪掉第一个地址信息
           filters:
             - StripPrefix=1
 #    sentinel:
