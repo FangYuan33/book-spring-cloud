@@ -7,8 +7,8 @@
         <version>3.6.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <name>ruoyi-modules-goods</name>
-    <artifactId>ruoyi-modules-goods</artifactId>
+    <name>fy-modules-goods</name>
+    <artifactId>fy-modules-goods</artifactId>
     <description>商品服务</description>
 
     <properties>
