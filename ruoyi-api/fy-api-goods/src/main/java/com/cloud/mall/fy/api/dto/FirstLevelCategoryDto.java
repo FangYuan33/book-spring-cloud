@@ -1,4 +1,4 @@
-package com.cloud.mall.fy.goodsservice.controller.vo;
+package com.cloud.mall.fy.api.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -9,7 +9,7 @@ import java.util.List;
  * 首页分类数据VO
  */
 @Data
-public class FirstLevelCategoryVO {
+public class FirstLevelCategoryDto {
 
     @ApiModelProperty("当前一级分类id")
     private Long id;
@@ -21,5 +21,5 @@ public class FirstLevelCategoryVO {
     private String categoryName;
 
     @ApiModelProperty("二级分类列表")
-    private List<SecondLevelCategoryVO> secondLevelCategoryVOS;
+    private List<SecondLevelCategoryDto> secondLevelCategoryDtos;
 }

@@ -1,6 +1,6 @@
 package com.cloud.mall.fy.goodsservice.controller;
 
-import com.cloud.mall.fy.goodsservice.controller.vo.FirstLevelCategoryVO;
+import com.cloud.mall.fy.api.dto.FirstLevelCategoryDto;
 import com.cloud.mall.fy.goodsservice.service.GoodsCategoryService;
 import com.ruoyi.common.core.exception.ServiceException;
 import com.ruoyi.common.core.web.domain.AjaxResult;
@@ -25,7 +25,7 @@ public class GoodsCategoryController {
     @GetMapping("/listAll")
     @ApiOperation(value = "获取分类数据", notes = "分类页面使用")
     public AjaxResult getCategories() {
-        List<FirstLevelCategoryVO> categories = goodsCategoryService.getCategoriesForIndex();
+        List<FirstLevelCategoryDto> categories = goodsCategoryService.getCategoriesForIndex();
 
         if (CollectionUtils.isEmpty(categories)) {
             throw new ServiceException("未获取到分类数据");

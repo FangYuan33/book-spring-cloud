@@ -2,7 +2,7 @@ package com.cloud.mall.fy.goodsservice.service;
 
 import com.cloud.mall.fy.goodsservice.controller.param.GoodsCategoryAddParam;
 import com.cloud.mall.fy.goodsservice.controller.param.GoodsCategoryEditParam;
-import com.cloud.mall.fy.goodsservice.controller.vo.FirstLevelCategoryVO;
+import com.cloud.mall.fy.api.dto.FirstLevelCategoryDto;
 import com.cloud.mall.fy.goodsservice.entity.GoodsCategory;
 
 import java.util.List;
@@ -15,7 +15,7 @@ public interface GoodsCategoryService {
     /**
      * 获取首页分类数据
      */
-    List<FirstLevelCategoryVO> getCategoriesForIndex();
+    List<FirstLevelCategoryDto> getCategoriesForIndex();
 
     /**
      * 新增商品分类

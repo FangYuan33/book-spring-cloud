@@ -1,7 +1,7 @@
 package com.cloud.mall.fy.goodsservice.service.impl;
 
 import com.cloud.mall.fy.goodsservice.controller.param.GoodsAddParam;
-import com.cloud.mall.fy.goodsservice.controller.vo.GoodsDetailVO;
+import com.cloud.mall.fy.api.dto.GoodsDetailDto;
 import com.cloud.mall.fy.goodsservice.dao.GoodsInfoMapper;
 import com.cloud.mall.fy.goodsservice.entity.GoodsInfo;
 import com.cloud.mall.fy.goodsservice.service.GoodsInfoService;
@@ -19,7 +19,7 @@ public class GoodsInfoServiceImpl implements GoodsInfoService {
     private GoodsInfoMapper goodsInfoMapper;
 
     @Override
-    public GoodsDetailVO getById(Long goodsId) {
+    public GoodsDetailDto getById(Long goodsId) {
         if (goodsId == null || goodsId < 0) {
             throw new ServiceException("参数异常");
         }
@@ -29,7 +29,7 @@ public class GoodsInfoServiceImpl implements GoodsInfoService {
         if (goodsInfo == null || GoodsSellStatusEnum.PUT_DOWN.getValue().equals(goodsInfo.getGoodsSellStatus())) {
             throw new ServiceException(GoodsSellStatusEnum.PUT_DOWN.getDesc());
         } else {
-            return BeanUtils.copyProperties2(goodsInfo, GoodsDetailVO.class);
+            return BeanUtils.copyProperties2(goodsInfo, GoodsDetailDto.class);
         }
     }
 

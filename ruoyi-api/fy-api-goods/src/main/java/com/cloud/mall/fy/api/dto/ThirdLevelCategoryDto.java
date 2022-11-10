@@ -1,4 +1,4 @@
-package com.cloud.mall.fy.goodsservice.controller.vo;
+package com.cloud.mall.fy.api.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -9,7 +9,7 @@ import java.io.Serializable;
  * 首页分类数据VO(第三级)
  */
 @Data
-public class ThirdLevelCategoryVO implements Serializable {
+public class ThirdLevelCategoryDto implements Serializable {
 
     @ApiModelProperty("当前三级分类id")
     private Long id;

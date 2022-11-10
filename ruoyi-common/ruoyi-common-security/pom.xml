@@ -28,6 +28,12 @@
             <artifactId>ruoyi-api-system</artifactId>
         </dependency>
 
+        <!-- fy Api goods -->
+        <dependency>
+            <groupId>com.ruoyi</groupId>
+            <artifactId>fy-api-goods</artifactId>
+        </dependency>
+
         <!-- RuoYi Common Redis-->
         <dependency>
             <groupId>com.ruoyi</groupId>

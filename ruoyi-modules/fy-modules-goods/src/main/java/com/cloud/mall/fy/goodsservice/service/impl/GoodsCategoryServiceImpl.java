@@ -2,9 +2,9 @@ package com.cloud.mall.fy.goodsservice.service.impl;
 
 import com.cloud.mall.fy.goodsservice.controller.param.GoodsCategoryAddParam;
 import com.cloud.mall.fy.goodsservice.controller.param.GoodsCategoryEditParam;
-import com.cloud.mall.fy.goodsservice.controller.vo.FirstLevelCategoryVO;
-import com.cloud.mall.fy.goodsservice.controller.vo.SecondLevelCategoryVO;
-import com.cloud.mall.fy.goodsservice.controller.vo.ThirdLevelCategoryVO;
+import com.cloud.mall.fy.api.dto.FirstLevelCategoryDto;
+import com.cloud.mall.fy.api.dto.SecondLevelCategoryDto;
+import com.cloud.mall.fy.api.dto.ThirdLevelCategoryDto;
 import com.cloud.mall.fy.goodsservice.dao.GoodsCategoryMapper;
 import com.cloud.mall.fy.goodsservice.entity.GoodsCategory;
 import com.cloud.mall.fy.goodsservice.service.GoodsCategoryService;
@@ -29,7 +29,7 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService {
 
 
     @Override
-    public List<FirstLevelCategoryVO> getCategoriesForIndex() {
+    public List<FirstLevelCategoryDto> getCategoriesForIndex() {
         // 获取一级分类
         List<GoodsCategory> firstLeverCategories = goodsCategoryMapper.selectByLevelAndInParentIds(
                 CategoryLevelEnum.LEVEL_ONE.getLevel(), Collections.singletonList(0L));
@@ -43,17 +43,17 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService {
                 CategoryLevelEnum.LEVEL_THREE.getLevel(), secondIds);
 
         // 二级分类视图
-        List<SecondLevelCategoryVO> secondLevelCategoryVOList =
+        List<SecondLevelCategoryDto> secondLevelCategoryDtoList =
                 getSecondLevelCategoryVOWithThirdLevelCategory(thirdLevelCategories, secondLevelCategories);
 
         // 处理并返回一级分类视图
-        return getIndexCategoryVOWithSecondLevelCategory(secondLevelCategoryVOList, firstLeverCategories);
+        return getIndexCategoryVOWithSecondLevelCategory(secondLevelCategoryDtoList, firstLeverCategories);
     }
 
     /**
      * 将对应的三级分类挂到所属的二级分类并返回二级分类视图
      */
-    private List<SecondLevelCategoryVO> getSecondLevelCategoryVOWithThirdLevelCategory(
+    private List<SecondLevelCategoryDto> getSecondLevelCategoryVOWithThirdLevelCategory(
                                                                 List<GoodsCategory> thirdLevelCategories,
                                                                 List<GoodsCategory> secondLevelCategories) {
         // 三级分类根据二级父类分类
@@ -61,42 +61,42 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService {
                 .collect(Collectors.groupingBy(GoodsCategory::getParentId));
 
         // 处理二级分类，将二级分类下挂对应的三级分类
-        List<SecondLevelCategoryVO> secondLevelCategoryVOS = new ArrayList<>();
+        List<SecondLevelCategoryDto> secondLevelCategoryDtos = new ArrayList<>();
         for (GoodsCategory secondLevelCategory : secondLevelCategories) {
-            SecondLevelCategoryVO secondLevelCategoryVO =
-                    BeanUtils.copyProperties2(secondLevelCategory, SecondLevelCategoryVO.class);
+            SecondLevelCategoryDto secondLevelCategoryDto =
+                    BeanUtils.copyProperties2(secondLevelCategory, SecondLevelCategoryDto.class);
 
             // 如果该二级分类下有三级分类数据则处理
             if (thirdMap.containsKey(secondLevelCategory.getId())) {
                 // 根据二级分类的id取出thirdLevelCategoryMap分组中的三级分类list
                 List<GoodsCategory> tempGoodsCategories = thirdMap.get(secondLevelCategory.getId());
-                secondLevelCategoryVO.setThirdLevelCategoryVOS(
-                        BeanUtils.copyList(tempGoodsCategories, ThirdLevelCategoryVO.class));
+                secondLevelCategoryDto.setThirdLevelCategoryDtos(
+                        BeanUtils.copyList(tempGoodsCategories, ThirdLevelCategoryDto.class));
             }
-            secondLevelCategoryVOS.add(secondLevelCategoryVO);
+            secondLevelCategoryDtos.add(secondLevelCategoryDto);
         }
 
-        return secondLevelCategoryVOS;
+        return secondLevelCategoryDtos;
     }
 
-    private ArrayList<FirstLevelCategoryVO> getIndexCategoryVOWithSecondLevelCategory(
-                                                                List<SecondLevelCategoryVO> secondLevelCategoryVOList,
+    private ArrayList<FirstLevelCategoryDto> getIndexCategoryVOWithSecondLevelCategory(
+                                                                List<SecondLevelCategoryDto> secondLevelCategoryDtoList,
                                                                 List<GoodsCategory> firstLeverCategories) {
         // 处理一级分类，对应挂靠它的所属二级分类
-        ArrayList<FirstLevelCategoryVO> firstLevelCategoryVOS = new ArrayList<>();
-        Map<Long, List<SecondLevelCategoryVO>> secondMap = secondLevelCategoryVOList.stream()
-                .collect(Collectors.groupingBy(SecondLevelCategoryVO::getParentId));
+        ArrayList<FirstLevelCategoryDto> firstLevelCategoryDtos = new ArrayList<>();
+        Map<Long, List<SecondLevelCategoryDto>> secondMap = secondLevelCategoryDtoList.stream()
+                .collect(Collectors.groupingBy(SecondLevelCategoryDto::getParentId));
         for (GoodsCategory firstLeverCategory : firstLeverCategories) {
-            FirstLevelCategoryVO firstLevelCategoryVO = BeanUtils.copyProperties2(firstLeverCategory, FirstLevelCategoryVO.class);
+            FirstLevelCategoryDto firstLevelCategoryDto = BeanUtils.copyProperties2(firstLeverCategory, FirstLevelCategoryDto.class);
 
             if (secondMap.containsKey(firstLeverCategory.getId())) {
-                List<SecondLevelCategoryVO> tempSecondCategories = secondMap.get(firstLeverCategory.getId());
-                firstLevelCategoryVO.setSecondLevelCategoryVOS(tempSecondCategories);
+                List<SecondLevelCategoryDto> tempSecondCategories = secondMap.get(firstLeverCategory.getId());
+                firstLevelCategoryDto.setSecondLevelCategoryDtos(tempSecondCategories);
             }
-            firstLevelCategoryVOS.add(firstLevelCategoryVO);
+            firstLevelCategoryDtos.add(firstLevelCategoryDto);
         }
 
-        return firstLevelCategoryVOS;
+        return firstLevelCategoryDtos;
     }
 
     @Override

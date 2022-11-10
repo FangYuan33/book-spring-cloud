@@ -22,7 +22,6 @@ public class RemoteGoodsFallbackFactory implements FallbackFactory<RemoteGoodsSe
         log.error("商品服务调用失败: {}", cause.getMessage());
 
         return new RemoteGoodsService() {
-
             @Override
             public R<GoodsDetailDto> getGoodsInfoById(Long goodsId, String source) {
                 return R.fail("获取商品信息失败: " + cause.getMessage());
