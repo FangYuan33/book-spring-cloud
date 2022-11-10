@@ -16,7 +16,7 @@ public class GoodsInfoController {
     @Autowired
     private GoodsInfoService goodsInfoService;
 
-    @PostMapping("/detail/{goodsId}")
+    @GetMapping("/detail/{goodsId}")
     @ApiOperation(value = "商品详情接口", notes = "传参为商品id")
     public AjaxResult goodsDetail(@ApiParam(value = "商品id") @PathVariable("goodsId") Long goodsId) {
         return AjaxResult.success(goodsInfoService.getById(goodsId));
