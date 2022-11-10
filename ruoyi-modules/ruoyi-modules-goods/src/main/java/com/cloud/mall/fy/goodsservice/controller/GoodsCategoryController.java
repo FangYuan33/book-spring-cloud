@@ -15,7 +15,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
-@RequestMapping("/goods/category")
+@RequestMapping("/category")
 @Api(value = "v1", tags = "分类页面接口")
 public class GoodsCategoryController {
 

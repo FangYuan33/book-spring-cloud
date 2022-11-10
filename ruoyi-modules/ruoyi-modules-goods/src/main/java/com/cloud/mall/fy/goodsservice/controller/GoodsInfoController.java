@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/goods/info")
+@RequestMapping("/info")
 @Api(value = "v1", tags = "商品信息页面接口")
 public class GoodsInfoController {
 
