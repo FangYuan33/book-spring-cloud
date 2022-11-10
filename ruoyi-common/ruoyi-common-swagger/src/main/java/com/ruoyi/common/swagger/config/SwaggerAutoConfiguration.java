@@ -50,7 +50,7 @@ public class SwaggerAutoConfiguration {
             swaggerProperties.getBasePath().add(BASE_PATH);
         }
         // noinspection unchecked
-        List<Predicate<String>> basePath = new ArrayList<Predicate<String>>();
+        List<Predicate<String>> basePath = new ArrayList<>();
         swaggerProperties.getBasePath().forEach(path -> basePath.add(PathSelectors.ant(path)));
 
         // exclude-path处理
@@ -61,14 +61,16 @@ public class SwaggerAutoConfiguration {
         List<Predicate<String>> excludePath = new ArrayList<>();
         swaggerProperties.getExcludePath().forEach(path -> excludePath.add(PathSelectors.ant(path)));
 
-        ApiSelectorBuilder builder = new Docket(DocumentationType.SWAGGER_2).host(swaggerProperties.getHost())
-                .apiInfo(apiInfo(swaggerProperties)).select()
+        ApiSelectorBuilder builder = new Docket(DocumentationType.SWAGGER_2)
+                .host(swaggerProperties.getHost())
+                .apiInfo(apiInfo(swaggerProperties))
+                .select()
                 .apis(RequestHandlerSelectors.basePackage(swaggerProperties.getBasePackage()));
 
         swaggerProperties.getBasePath().forEach(p -> builder.paths(PathSelectors.ant(p)));
         swaggerProperties.getExcludePath().forEach(p -> builder.paths(PathSelectors.ant(p).negate()));
 
-        return builder.build().securitySchemes(securitySchemes()).securityContexts(securityContexts()).pathMapping("/");
+        return builder.build().securitySchemes(securitySchemes()).securityContexts(securityContexts()).pathMapping("");
     }
 
     /**
