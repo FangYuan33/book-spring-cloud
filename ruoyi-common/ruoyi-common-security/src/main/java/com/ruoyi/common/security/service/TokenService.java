@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import javax.servlet.http.HttpServletRequest;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.ruoyi.common.core.constant.CacheConstants;
@@ -23,6 +24,7 @@ import com.ruoyi.system.api.model.LoginUser;
  *
  * @author ruoyi
  */
+@Slf4j
 @Component
 public class TokenService {
     @Autowired
@@ -62,7 +64,10 @@ public class TokenService {
         // 接口返回信息
         Map<String, Object> rspMap = new HashMap<>();
         // 讲jwt生成的上述 用户id、用户名称、Token等信息变成access_token返回
-        rspMap.put("access_token", JwtUtils.createToken(claimsMap));
+        String accessToken = JwtUtils.createToken(claimsMap);
+        log.info("登录Token: {}", accessToken);
+
+        rspMap.put("access_token", accessToken);
         rspMap.put("expires_in", expireTime);
         return rspMap;
     }
