@@ -5,6 +5,7 @@ import com.cloud.mall.fy.goodsservice.controller.param.GoodsCategoryAddParam;
 import com.cloud.mall.fy.goodsservice.controller.param.GoodsCategoryEditParam;
 import com.cloud.mall.fy.goodsservice.service.GoodsCategoryService;
 import com.ruoyi.common.core.exception.ServiceException;
+import com.ruoyi.common.core.web.controller.BaseController;
 import com.ruoyi.common.core.web.domain.AjaxResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -18,7 +19,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/category")
 @Api(value = "v1", tags = "分类页面接口")
-public class GoodsCategoryController {
+public class GoodsCategoryController extends BaseController {
 
     @Resource
     private GoodsCategoryService goodsCategoryService;
