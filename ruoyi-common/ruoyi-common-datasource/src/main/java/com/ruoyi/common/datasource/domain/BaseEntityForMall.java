@@ -29,5 +29,5 @@ public class BaseEntityForMall {
     /**
      * 删除标识字段(0-未删除 1-已删除)
      */
-    protected Byte isDeleted;
+    protected Integer isDeleted;
 }

@@ -21,7 +21,7 @@ public class GoodsCategoryEditParam {
     @NotNull(message = "categoryLevel不能为空")
     @Min(value = 1, message = "分类级别最低为1")
     @Max(value = 3, message = "分类级别最高为3")
-    private Byte categoryLevel;
+    private Integer categoryLevel;
 
     @ApiModelProperty("父类id")
     @NotNull(message = "parentId不能为空")

@@ -1,12 +1,15 @@
 package com.cloud.mall.fy.goodsservice.controller;
 
+import com.cloud.mall.fy.api.dto.GoodsDetailDto;
 import com.cloud.mall.fy.goodsservice.controller.param.GoodsAddParam;
 import com.cloud.mall.fy.goodsservice.controller.param.GoodsEditParam;
 import com.cloud.mall.fy.goodsservice.controller.param.GoodsListParam;
 import com.cloud.mall.fy.goodsservice.service.GoodsInfoService;
+import com.ruoyi.common.core.domain.R;
 import com.ruoyi.common.core.web.controller.BaseController;
 import com.ruoyi.common.core.web.domain.AjaxResult;
 import com.ruoyi.common.core.web.page.TableDataInfo;
+import com.ruoyi.common.security.annotation.InnerAuth;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -50,4 +53,9 @@ public class GoodsInfoController extends BaseController {
         return AjaxResult.success(goodsInfoService.getById(goodsId));
     }
 
+    @InnerAuth
+    @GetMapping("/inner/detail/{goodsId}")
+    public R<GoodsDetailDto> goodsDetailInner(@PathVariable("goodsId") Long goodsId) {
+        return R.ok(goodsInfoService.getById(goodsId));
+    }
 }

@@ -15,7 +15,7 @@ public class ThirdLevelCategoryDto implements Serializable {
     private Long id;
 
     @ApiModelProperty("当前分类级别")
-    private Byte categoryLevel;
+    private Integer categoryLevel;
 
     @ApiModelProperty("当前三级分类名称")
     private String categoryName;

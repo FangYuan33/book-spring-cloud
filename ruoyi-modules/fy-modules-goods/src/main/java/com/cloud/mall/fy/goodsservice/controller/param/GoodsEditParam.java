@@ -52,7 +52,7 @@ public class GoodsEditParam {
     @Length(max = 16, message = "商品标签内容过长")
     private String tag;
 
-    private Byte goodsSellStatus;
+    private Integer goodsSellStatus;
 
     @ApiModelProperty("商品详情")
     private String goodsDetailContent;

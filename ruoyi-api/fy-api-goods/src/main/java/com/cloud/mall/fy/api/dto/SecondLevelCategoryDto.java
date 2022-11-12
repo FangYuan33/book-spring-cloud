@@ -19,7 +19,7 @@ public class SecondLevelCategoryDto implements Serializable {
     private Long parentId;
 
     @ApiModelProperty("当前分类级别")
-    private Byte categoryLevel;
+    private Integer categoryLevel;
 
     @ApiModelProperty("当前二级分类名称")
     private String categoryName;

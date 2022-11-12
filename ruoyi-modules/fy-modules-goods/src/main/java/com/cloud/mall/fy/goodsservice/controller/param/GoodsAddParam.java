@@ -54,7 +54,7 @@ public class GoodsAddParam {
     @Length(max = 16,message = "商品标签内容过长")
     private String tag;
 
-    private Byte goodsSellStatus;
+    private Integer goodsSellStatus;
 
     @ApiModelProperty("商品详情")
     @NotEmpty(message = "商品详情不能为空")

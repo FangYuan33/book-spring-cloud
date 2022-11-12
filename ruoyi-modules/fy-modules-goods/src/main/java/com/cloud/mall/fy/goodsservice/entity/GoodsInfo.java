@@ -70,5 +70,5 @@ public class GoodsInfo extends BaseEntityForMall {
     private Integer goodsSellStatus;
 
     @TableField(exist = false)
-    private Byte isDeleted;
+    private Integer isDeleted;
 }

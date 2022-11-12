@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
         fallbackFactory = RemoteGoodsFallbackFactory.class)
 public interface RemoteGoodsService {
 
-    @GetMapping("/info/detail/{goodsId}")
+    @GetMapping("/info/inner/detail/{goodsId}")
     R<GoodsDetailDto> getGoodsInfoById(@PathVariable("goodsId") Long goodsId,
                                        @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
 }
