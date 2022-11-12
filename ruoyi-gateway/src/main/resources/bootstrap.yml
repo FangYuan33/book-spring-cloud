@@ -87,6 +87,12 @@ spring:
           # 过滤器 StringPrefix:1 裁剪掉第一个地址信息
           filters:
             - StripPrefix=1
+        - id: recommend-service
+          uri: lb://recommend-service
+          predicates:
+            - Path=/carousels/**
+          filters:
+            - StripPrefix=1
 #    sentinel:
 #      # 取消控制台懒加载
 #      eager: true

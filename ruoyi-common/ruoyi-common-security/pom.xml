@@ -34,6 +34,12 @@
             <artifactId>fy-api-goods</artifactId>
         </dependency>
 
+        <!-- fy Api recommend -->
+        <dependency>
+            <groupId>com.ruoyi</groupId>
+            <artifactId>fy-api-recommend</artifactId>
+        </dependency>
+
         <!-- RuoYi Common Redis-->
         <dependency>
             <groupId>com.ruoyi</groupId>

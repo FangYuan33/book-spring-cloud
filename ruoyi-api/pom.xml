@@ -11,6 +11,7 @@
     <modules>
         <module>ruoyi-api-system</module>
         <module>fy-api-goods</module>
+        <module>fy-api-recommend</module>
     </modules>
 
     <artifactId>ruoyi-api</artifactId>

@@ -25,4 +25,9 @@ public class ServiceNameConstants {
      * 商品服务的service id
      */
     public static final String GOODS_SERVICE = "goods-service";
+
+    /**
+     * 商品推荐服务的service id
+     */
+    public static final String RECOMMEND_SERVICE = "recommend-service";
 }

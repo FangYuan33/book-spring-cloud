@@ -248,6 +248,12 @@
                 <artifactId>fy-api-goods</artifactId>
                 <version>${ruoyi.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.ruoyi</groupId>
+                <artifactId>fy-api-recommend</artifactId>
+                <version>${ruoyi.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
