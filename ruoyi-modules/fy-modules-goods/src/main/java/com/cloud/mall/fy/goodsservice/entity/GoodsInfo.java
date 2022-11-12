@@ -1,7 +1,8 @@
 package com.cloud.mall.fy.goodsservice.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.ruoyi.common.core.web.domain.BaseEntityForMall;
+import com.ruoyi.common.datasource.domain.BaseEntityForMall;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -67,4 +68,7 @@ public class GoodsInfo extends BaseEntityForMall {
      * 商品上架状态 1-上架 0-下架
      */
     private Integer goodsSellStatus;
+
+    @TableField(exist = false)
+    private Byte isDeleted;
 }

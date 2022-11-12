@@ -16,6 +16,11 @@
     </description>
 
     <dependencies>
+        <!-- ruoyi-common-core -->
+        <dependency>
+            <groupId>com.ruoyi</groupId>
+            <artifactId>ruoyi-common-core</artifactId>
+        </dependency>
 
         <!-- Druid -->
         <dependency>
@@ -31,5 +36,10 @@
             <version>${dynamic-ds.version}</version>
         </dependency>
 
+        <!-- mybatis-plus -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+        </dependency>
     </dependencies>
 </project>
