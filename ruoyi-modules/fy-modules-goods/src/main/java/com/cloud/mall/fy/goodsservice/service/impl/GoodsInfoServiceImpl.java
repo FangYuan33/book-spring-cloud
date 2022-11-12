@@ -2,6 +2,7 @@ package com.cloud.mall.fy.goodsservice.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cloud.mall.fy.goodsservice.controller.param.GoodsAddParam;
 import com.cloud.mall.fy.api.dto.GoodsDetailDto;
 import com.cloud.mall.fy.goodsservice.controller.param.GoodsEditParam;
@@ -15,14 +16,10 @@ import com.ruoyi.common.core.utils.StringUtils;
 import com.ruoyi.common.core.utils.bean.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 @Service
-public class GoodsInfoServiceImpl implements GoodsInfoService {
-
-    @Resource
-    private GoodsInfoMapper goodsInfoMapper;
+public class GoodsInfoServiceImpl extends ServiceImpl<GoodsInfoMapper, GoodsInfo> implements GoodsInfoService {
 
     @Override
     public GoodsDetailDto getById(Long goodsId) {
@@ -30,7 +27,7 @@ public class GoodsInfoServiceImpl implements GoodsInfoService {
             throw new ServiceException("参数异常");
         }
 
-        GoodsInfo goodsInfo = goodsInfoMapper.selectById(goodsId);
+        GoodsInfo goodsInfo = baseMapper.selectById(goodsId);
 
         if (goodsInfo == null || GoodsSellStatusEnum.PUT_DOWN.getValue().equals(goodsInfo.getGoodsSellStatus())) {
             throw new ServiceException(GoodsSellStatusEnum.PUT_DOWN.getDesc());
@@ -42,7 +39,7 @@ public class GoodsInfoServiceImpl implements GoodsInfoService {
     @Override
     public void save(GoodsAddParam goodsAddParam) {
         GoodsInfo goodsInfo = BeanUtils.copyProperties2(goodsAddParam, GoodsInfo.class);
-        goodsInfoMapper.insert(goodsInfo);
+        baseMapper.insert(goodsInfo);
     }
 
     @Override
@@ -50,7 +47,7 @@ public class GoodsInfoServiceImpl implements GoodsInfoService {
         LambdaQueryWrapper<GoodsInfo> queryWrapper = new QueryWrapper<GoodsInfo>().lambda()
                 .like(StringUtils.isNotEmpty(listParam.getGoodsName()), GoodsInfo::getGoodsName, listParam.getGoodsName())
                 .eq(listParam.getGoodsSellStatus() != null, GoodsInfo::getGoodsSellStatus, listParam.getGoodsSellStatus());
-        List<GoodsInfo> goodsInfoList = goodsInfoMapper.selectList(queryWrapper);
+        List<GoodsInfo> goodsInfoList = baseMapper.selectList(queryWrapper);
 
         return BeanUtils.copyList(goodsInfoList,GoodsDetailDto.class);
     }
@@ -60,6 +57,6 @@ public class GoodsInfoServiceImpl implements GoodsInfoService {
         GoodsInfo update = BeanUtils.copyProperties2(goodsEditParam, GoodsInfo.class);
         update.setId(goodsEditParam.getGoodsId());
 
-        goodsInfoMapper.updateById(update);
+        baseMapper.updateById(update);
     }
 }

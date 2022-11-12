@@ -48,6 +48,13 @@ logging:
   level:
     com.cloud.mall.fy.goodsservice.dao: debug
 
+mybatis-plus:
+  mapper-locations: classpath:mapper/*Mapper.xml
+  global-config:
+    db-config:
+      # id自增
+      id-type: auto
+
 swagger:
   enabled: true
   basePackage: com.cloud.mall.fy.goodsservice.controller

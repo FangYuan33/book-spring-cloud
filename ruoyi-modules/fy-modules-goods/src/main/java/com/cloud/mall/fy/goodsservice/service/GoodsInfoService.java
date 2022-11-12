@@ -1,16 +1,18 @@
 package com.cloud.mall.fy.goodsservice.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.cloud.mall.fy.goodsservice.controller.param.GoodsAddParam;
 import com.cloud.mall.fy.api.dto.GoodsDetailDto;
 import com.cloud.mall.fy.goodsservice.controller.param.GoodsEditParam;
 import com.cloud.mall.fy.goodsservice.controller.param.GoodsListParam;
+import com.cloud.mall.fy.goodsservice.entity.GoodsInfo;
 
 import java.util.List;
 
 /**
  * 商品信息服务层
  */
-public interface GoodsInfoService {
+public interface GoodsInfoService extends IService<GoodsInfo> {
 
     /**
      * 根据ID 获取商品详情
