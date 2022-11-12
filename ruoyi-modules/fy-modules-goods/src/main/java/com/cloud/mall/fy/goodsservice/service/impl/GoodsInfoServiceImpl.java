@@ -11,6 +11,7 @@ import com.cloud.mall.fy.goodsservice.entity.GoodsInfo;
 import com.cloud.mall.fy.goodsservice.service.GoodsInfoService;
 import com.ruoyi.common.core.enums.GoodsSellStatusEnum;
 import com.ruoyi.common.core.exception.ServiceException;
+import com.ruoyi.common.core.utils.StringUtils;
 import com.ruoyi.common.core.utils.bean.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -47,8 +48,8 @@ public class GoodsInfoServiceImpl implements GoodsInfoService {
     @Override
     public List<GoodsDetailDto> list(GoodsListParam listParam) {
         LambdaQueryWrapper<GoodsInfo> queryWrapper = new QueryWrapper<GoodsInfo>().lambda()
-                .like(GoodsInfo::getGoodsName, listParam.getGoodsName())
-                .eq(GoodsInfo::getGoodsSellStatus, listParam.getGoodsSellStatus());
+                .like(StringUtils.isNotEmpty(listParam.getGoodsName()), GoodsInfo::getGoodsName, listParam.getGoodsName())
+                .eq(listParam.getGoodsSellStatus() != null, GoodsInfo::getGoodsSellStatus, listParam.getGoodsSellStatus());
         List<GoodsInfo> goodsInfoList = goodsInfoMapper.selectList(queryWrapper);
 
         return BeanUtils.copyList(goodsInfoList,GoodsDetailDto.class);
@@ -56,6 +57,9 @@ public class GoodsInfoServiceImpl implements GoodsInfoService {
 
     @Override
     public void editById(GoodsEditParam goodsEditParam) {
-        goodsInfoMapper.updateById(BeanUtils.copyProperties2(goodsEditParam, GoodsInfo.class));
+        GoodsInfo update = BeanUtils.copyProperties2(goodsEditParam, GoodsInfo.class);
+        update.setId(goodsEditParam.getGoodsId());
+
+        goodsInfoMapper.updateById(update);
     }
 }
