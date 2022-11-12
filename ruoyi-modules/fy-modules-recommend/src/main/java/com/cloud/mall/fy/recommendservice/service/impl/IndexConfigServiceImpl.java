@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cloud.mall.fy.api.RemoteGoodsService;
 import com.cloud.mall.fy.api.dto.GoodsDetailDto;
 import com.cloud.mall.fy.api.dto.IndexConfigDto;
+import com.cloud.mall.fy.api.dto.IndexConfigGoodsDto;
 import com.cloud.mall.fy.recommendservice.controller.param.IndexConfigQueryParam;
 import com.cloud.mall.fy.recommendservice.dao.IndexConfigMapper;
 import com.cloud.mall.fy.recommendservice.entity.IndexConfig;
@@ -15,12 +16,13 @@ import com.ruoyi.common.core.domain.R;
 import com.ruoyi.common.core.exception.ServiceException;
 import com.ruoyi.common.core.utils.StringUtils;
 import com.ruoyi.common.core.utils.bean.BeanUtils;
+import io.jsonwebtoken.lang.Collections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class IndexConfigServiceImpl extends ServiceImpl<IndexConfigMapper, IndexConfig> implements IndexConfigService {
@@ -72,15 +74,10 @@ public class IndexConfigServiceImpl extends ServiceImpl<IndexConfigMapper, Index
      * @param goodsId 商品ID
      */
     private boolean checkExistGoodsDetailById(Long goodsId) {
-        R<GoodsDetailDto> goodsInfo = remoteGoodsService.getGoodsInfoById(goodsId, SecurityConstants.INNER);
-        if (StringUtils.isNull(goodsInfo) || StringUtils.isNull(goodsInfo.getData())) {
-            throw new ServiceException("商品不存在");
-        }
-        if (R.FAIL == goodsInfo.getCode()) {
-            throw new ServiceException(goodsInfo.getMsg());
-        }
+        R<GoodsDetailDto> result = remoteGoodsService.getGoodsInfoById(goodsId, SecurityConstants.INNER);
+        GoodsDetailDto goodsDetailDto = (GoodsDetailDto) processFeignResult(result);
 
-        return true;
+        return goodsDetailDto != null;
     }
 
     /**
@@ -104,5 +101,39 @@ public class IndexConfigServiceImpl extends ServiceImpl<IndexConfigMapper, Index
 
         String[] idArray = ids.split(",");
         baseMapper.deleteBatchIds(Arrays.asList(idArray));
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<IndexConfigGoodsDto> getConfigGoodsForIndex(Integer configType) {
+        LambdaQueryWrapper<IndexConfig> queryWrapper = new QueryWrapper<IndexConfig>().lambda()
+                .eq(IndexConfig::getConfigType, configType);
+        List<IndexConfig> indexConfigs = baseMapper.selectList(queryWrapper);
+
+        if (!Collections.isEmpty(indexConfigs)) {
+            List<Long> goodsIdList = indexConfigs.stream().map(IndexConfig::getGoodsId).collect(Collectors.toList());
+
+            // 获取商品明细列表
+            R<List<GoodsDetailDto>> result = remoteGoodsService.getGoodsListById(goodsIdList, SecurityConstants.INNER);
+            List<GoodsDetailDto> goodsDetailDtoList = (List<GoodsDetailDto>) processFeignResult(result);
+            // 转换成首页商品信息
+            return BeanUtils.copyList(goodsDetailDtoList, IndexConfigGoodsDto.class);
+        }
+
+        return java.util.Collections.emptyList();
+    }
+
+    /**
+     * 处理FeignResult 返回Object对象强转一下即可
+     */
+    private Object processFeignResult(R<?> result) {
+        if (StringUtils.isNull(result)) {
+            throw new ServiceException("商品服务调用异常");
+        }
+        if (R.FAIL == result.getCode()) {
+            throw new ServiceException(result.getMsg());
+        }
+
+        return result.getData();
     }
 }

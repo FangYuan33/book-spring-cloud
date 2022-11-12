@@ -2,6 +2,7 @@ package com.cloud.mall.fy.recommendservice.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.cloud.mall.fy.api.dto.IndexConfigDto;
+import com.cloud.mall.fy.api.dto.IndexConfigGoodsDto;
 import com.cloud.mall.fy.recommendservice.controller.param.IndexConfigQueryParam;
 import com.cloud.mall.fy.recommendservice.entity.IndexConfig;
 
@@ -29,4 +30,9 @@ public interface IndexConfigService extends IService<IndexConfig> {
      * @param ids id, 用逗号分割
      */
     void batchDelete(String ids);
+
+    /**
+     * 获取首页配置的热搜商品信息
+     */
+    List<IndexConfigGoodsDto> getConfigGoodsForIndex(Integer configType);
 }

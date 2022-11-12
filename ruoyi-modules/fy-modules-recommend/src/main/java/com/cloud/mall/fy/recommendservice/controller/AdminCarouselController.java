@@ -17,7 +17,7 @@ import javax.annotation.Resource;
 import javax.validation.Valid;
 @RestController
 @Api(value = "v1", tags = "后台管理系统轮播图模块接口")
-@RequestMapping("/carousels/admin")
+@RequestMapping("/recommend/carousels/admin")
 public class AdminCarouselController extends BaseController {
 
     @Resource

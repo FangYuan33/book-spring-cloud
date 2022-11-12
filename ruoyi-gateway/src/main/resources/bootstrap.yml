@@ -90,7 +90,7 @@ spring:
         - id: recommend-service
           uri: lb://recommend-service
           predicates:
-            - Path=/carousels/**
+            - Path=/recommend/**
           filters:
             - StripPrefix=1
 #    sentinel:

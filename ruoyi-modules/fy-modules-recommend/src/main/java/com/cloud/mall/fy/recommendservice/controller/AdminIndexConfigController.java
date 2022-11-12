@@ -19,7 +19,7 @@ import javax.validation.Valid;
 
 @RestController
 @Api(value = "v1", tags = "后台管理系统首页配置模块接口")
-@RequestMapping("/indexConfigs/admin")
+@RequestMapping("/recommend/indexConfigs/admin")
 public class AdminIndexConfigController extends BaseController {
 
     @Resource

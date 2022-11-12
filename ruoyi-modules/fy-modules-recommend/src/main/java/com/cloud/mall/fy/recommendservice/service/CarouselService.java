@@ -25,4 +25,9 @@ public interface CarouselService extends IService<Carousel> {
      * @param batchIds ids, 用英文逗号分割
      */
     void batchDelete(String batchIds);
+
+    /**
+     * 获取首页轮播图配置
+     */
+    List<CarouselDto> getCarouselsForIndex();
 }

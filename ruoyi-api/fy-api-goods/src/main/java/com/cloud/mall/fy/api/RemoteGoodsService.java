@@ -9,6 +9,9 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @FeignClient(contextId = "remoteGoodsService", value = ServiceNameConstants.GOODS_SERVICE,
         fallbackFactory = RemoteGoodsFallbackFactory.class)
@@ -16,5 +19,9 @@ public interface RemoteGoodsService {
 
     @GetMapping("/info/inner/detail/{goodsId}")
     R<GoodsDetailDto> getGoodsInfoById(@PathVariable("goodsId") Long goodsId,
+                                       @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+
+    @GetMapping("/info/inner/detailList")
+    R<List<GoodsDetailDto>> getGoodsListById(@RequestParam("goodsIds") List<Long> goodsIds,
                                        @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
 }

@@ -7,6 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * 商品服务降级处理
  *
@@ -25,6 +27,11 @@ public class RemoteGoodsFallbackFactory implements FallbackFactory<RemoteGoodsSe
             @Override
             public R<GoodsDetailDto> getGoodsInfoById(Long goodsId, String source) {
                 return R.fail("获取商品信息失败: " + cause.getMessage());
+            }
+
+            @Override
+            public R<List<GoodsDetailDto>> getGoodsListById(List<Long> goodsIds, String source) {
+                return R.fail("获取商品列表信息失败: " + cause.getMessage());
             }
         };
     }

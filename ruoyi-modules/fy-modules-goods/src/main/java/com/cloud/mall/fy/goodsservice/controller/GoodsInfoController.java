@@ -4,8 +4,10 @@ import com.cloud.mall.fy.api.dto.GoodsDetailDto;
 import com.cloud.mall.fy.goodsservice.controller.param.GoodsAddParam;
 import com.cloud.mall.fy.goodsservice.controller.param.GoodsEditParam;
 import com.cloud.mall.fy.goodsservice.controller.param.GoodsListParam;
+import com.cloud.mall.fy.goodsservice.entity.GoodsInfo;
 import com.cloud.mall.fy.goodsservice.service.GoodsInfoService;
 import com.ruoyi.common.core.domain.R;
+import com.ruoyi.common.core.utils.bean.BeanUtils;
 import com.ruoyi.common.core.web.controller.BaseController;
 import com.ruoyi.common.core.web.domain.AjaxResult;
 import com.ruoyi.common.core.web.page.TableDataInfo;
@@ -17,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/info")
@@ -57,5 +60,12 @@ public class GoodsInfoController extends BaseController {
     @GetMapping("/inner/detail/{goodsId}")
     public R<GoodsDetailDto> goodsDetailInner(@PathVariable("goodsId") Long goodsId) {
         return R.ok(goodsInfoService.getById(goodsId));
+    }
+
+    @InnerAuth
+    @GetMapping("/inner/detailList")
+    public R<List<GoodsDetailDto>> goodsDetailListInner(@RequestParam("goodsIds") List<Long> goodsIds) {
+        List<GoodsInfo> goodsInfoList = goodsInfoService.listByIds(goodsIds);
+        return R.ok(BeanUtils.copyList(goodsInfoList, GoodsDetailDto.class));
     }
 }

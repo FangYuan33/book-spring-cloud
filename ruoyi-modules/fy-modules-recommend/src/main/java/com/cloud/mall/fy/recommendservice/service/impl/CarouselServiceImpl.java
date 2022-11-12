@@ -1,5 +1,6 @@
 package com.cloud.mall.fy.recommendservice.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cloud.mall.fy.api.dto.CarouselDto;
@@ -17,6 +18,8 @@ import java.util.List;
 @Service
 public class CarouselServiceImpl extends ServiceImpl<CarouselMapper, Carousel> implements CarouselService {
 
+    private static final String CAROUSE_NUM = "5";
+
     @Override
     public List<CarouselDto> listByCondition() {
         List<Carousel> carouselList = baseMapper.selectList(new QueryWrapper<>());
@@ -31,5 +34,14 @@ public class CarouselServiceImpl extends ServiceImpl<CarouselMapper, Carousel> i
 
         String[] ids = batchIds.split(",");
         baseMapper.deleteBatchIds(Arrays.asList(ids));
+    }
+
+    @Override
+    public List<CarouselDto> getCarouselsForIndex() {
+        LambdaQueryWrapper<Carousel> queryWrapper = new QueryWrapper<Carousel>().lambda()
+                .orderByDesc(Carousel::getId).last("limit " + CAROUSE_NUM);
+        List<Carousel> carouselList = baseMapper.selectList(queryWrapper);
+
+        return BeanUtils.copyList(carouselList, CarouselDto.class);
     }
 }
