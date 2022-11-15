@@ -4,7 +4,7 @@ import com.cloud.mall.fy.api.factory.RemoteRecommendFallbackFactory;
 import com.ruoyi.common.core.constant.ServiceNameConstants;
 import org.springframework.cloud.openfeign.FeignClient;
 
-@FeignClient(contextId = "remoteGoodsService", value = ServiceNameConstants.RECOMMEND_SERVICE,
+@FeignClient(contextId = "remoteRecommendService", value = ServiceNameConstants.RECOMMEND_SERVICE,
         fallbackFactory = RemoteRecommendFallbackFactory.class)
 public interface RemoteRecommendService {
 
