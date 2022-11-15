@@ -2,6 +2,7 @@ package com.cloud.mall.fy.api.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
@@ -9,6 +10,7 @@ import java.io.Serializable;
  * 购物车页面购物项Dto
  */
 @Data
+@Accessors(chain = true)
 public class ShoppingCartItemDto implements Serializable {
 
     @ApiModelProperty("购物项id")

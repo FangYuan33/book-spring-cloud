@@ -3,6 +3,7 @@ package com.cloud.mall.fy.shoppingcartservice.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.cloud.mall.fy.api.dto.GoodsDetailDto;
 import com.cloud.mall.fy.shoppingcartservice.dao.ShoppingCartItemMapper;
 import com.cloud.mall.fy.shoppingcartservice.entity.ShoppingCartItem;
 import com.cloud.mall.fy.shoppingcartservice.service.ShoppingCartService;
@@ -16,7 +17,10 @@ import com.cloud.mall.fy.api.RemoteGoodsService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
+
+import static com.ruoyi.common.core.utils.feign.OpenFeignResultUtil.processFeignResult;
 
 @Service
 public class ShoppingCartServiceImpl extends ServiceImpl<ShoppingCartItemMapper, ShoppingCartItem>
@@ -31,7 +35,7 @@ public class ShoppingCartServiceImpl extends ServiceImpl<ShoppingCartItemMapper,
 
         // 初始化结果参数
         List<ShoppingCartItemDto> result = new ArrayList<>(shoppingCartItemList.size());
-        initialShoppingCartItemreGoodsInfo(shoppingCartItemList, result);
+        initialShoppingCartItemGoodsInfo(shoppingCartItemList, result);
 
         return result;
     }
@@ -51,22 +55,24 @@ public class ShoppingCartServiceImpl extends ServiceImpl<ShoppingCartItemMapper,
      * @param shoppingCartItemList 数据库查出来的待连表信息的购物车信息
      * @param result               需要被初始化参数的结果对象
      */
+    @SuppressWarnings("unchecked")
     private void initialShoppingCartItemGoodsInfo(List<ShoppingCartItem> shoppingCartItemList,
                                                   List<ShoppingCartItemDto> result) {
         List<Long> goodsIdList = shoppingCartItemList.stream().map(ShoppingCartItem::getGoodsId).collect(Collectors.toList());
         R<List<GoodsDetailDto>> goodsList = remoteGoodsService.getGoodsListById(goodsIdList, SecurityConstants.INNER);
-        List<GoodsDetailDto> goodsDetailDtoList = (List<GoodsDetailDto>) processFeignResult(result);
+        List<GoodsDetailDto> goodsDetailDtoList = (List<GoodsDetailDto>) processFeignResult(goodsList);
 
         // map key: id, value: goodsDetail
-        Map<Long, GoodsDetailDto> map = goodsDetailDtoList.stream().collect(Collectors.toMap());
+        Map<Long, GoodsDetailDto> map = goodsDetailDtoList.stream()
+                .collect(Collectors.toMap(GoodsDetailDto::getId, (x) -> x));
 
         for (ShoppingCartItem shoppingCartItem : shoppingCartItemList) {
             GoodsDetailDto goodsInfo = map.get(shoppingCartItem.getGoodsId());
-
             // 商品名称、图片、价格、ID
             ShoppingCartItemDto itemDto = BeanUtils.copyProperties2(goodsInfo, ShoppingCartItemDto.class);
-            itemDto.setGoodsId(goodsInfo.getId);
+            itemDto.setGoodsId(goodsInfo.getId());
             // 购物项ID、商品数量
+            itemDto.setCartItemId(shoppingCartItem.getId()).setGoodsCount(shoppingCartItem.getGoodsCount());
 
             result.add(itemDto);
         }

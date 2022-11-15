@@ -24,6 +24,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.ruoyi.common.core.utils.feign.OpenFeignResultUtil.processFeignResult;
+
 @Service
 public class IndexConfigServiceImpl extends ServiceImpl<IndexConfigMapper, IndexConfig> implements IndexConfigService {
 
@@ -121,19 +123,5 @@ public class IndexConfigServiceImpl extends ServiceImpl<IndexConfigMapper, Index
         }
 
         return java.util.Collections.emptyList();
-    }
-
-    /**
-     * 处理FeignResult 返回Object对象强转一下即可
-     */
-    private Object processFeignResult(R<?> result) {
-        if (StringUtils.isNull(result)) {
-            throw new ServiceException("商品服务调用异常");
-        }
-        if (R.FAIL == result.getCode()) {
-            throw new ServiceException(result.getMsg());
-        }
-
-        return result.getData();
     }
 }
