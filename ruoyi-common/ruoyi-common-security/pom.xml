@@ -40,6 +40,12 @@
             <artifactId>fy-api-recommend</artifactId>
         </dependency>
 
+        <!-- fy Api shopping cart -->
+        <dependency>
+            <groupId>com.ruoyi</groupId>
+            <artifactId>fy-api-shopping-cart</artifactId>
+        </dependency>
+
         <!-- RuoYi Common Redis-->
         <dependency>
             <groupId>com.ruoyi</groupId>
