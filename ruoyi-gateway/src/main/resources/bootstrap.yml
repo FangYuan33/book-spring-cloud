@@ -93,6 +93,12 @@ spring:
             - Path=/recommend/**
           filters:
             - StripPrefix=1
+        - id: shopping-cart-service
+          uri: lb://shopping-cart-service
+          predicates:
+            - Path=/shopping-cart/**
+          filters:
+            - StripPrefix=1
 #    sentinel:
 #      # 取消控制台懒加载
 #      eager: true

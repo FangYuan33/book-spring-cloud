@@ -15,6 +15,7 @@
         <module>ruoyi-modules-file</module>
         <module>fy-modules-goods</module>
         <module>fy-modules-recommend</module>
+        <module>fy-modules-shopping-cart</module>
     </modules>
 
     <artifactId>ruoyi-modules</artifactId>
