@@ -1,6 +1,7 @@
 package com.cloud.mall.fy.shoppingcartservice.controller;
 
 import com.cloud.mall.fy.shoppingcartservice.controller.param.SaveCartItemParam;
+import com.cloud.mall.fy.shoppingcartservice.controller.param.UpdateCartItemParam;
 import com.cloud.mall.fy.shoppingcartservice.service.ShoppingCartService;
 import com.ruoyi.common.core.web.controller.BaseController;
 import com.ruoyi.common.core.web.domain.AjaxResult;
@@ -30,6 +31,13 @@ public class ShoppingCartController extends BaseController {
     @ApiOperation(value = "添加商品到购物车接口", notes = "传参为商品id、数量")
     public AjaxResult addShoppingCartItem(@RequestBody SaveCartItemParam saveCartItemParam) {
         shoppingCartService.add(saveCartItemParam);
+        return AjaxResult.success();
+    }
+
+    @PostMapping("/update")
+    @ApiOperation(value = "修改购物车商品数量接口", notes = "传参为商品id、数量")
+    public AjaxResult updateShoppingCartItem(@RequestBody UpdateCartItemParam updateCartItemParam) {
+        shoppingCartService.updateShoppingCartItem(updateCartItemParam);
         return AjaxResult.success();
     }
 }

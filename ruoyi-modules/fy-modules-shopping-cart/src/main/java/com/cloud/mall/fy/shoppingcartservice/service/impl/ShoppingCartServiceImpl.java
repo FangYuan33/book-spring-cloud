@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cloud.mall.fy.api.dto.GoodsDetailDto;
 import com.cloud.mall.fy.shoppingcartservice.controller.param.SaveCartItemParam;
+import com.cloud.mall.fy.shoppingcartservice.controller.param.UpdateCartItemParam;
 import com.cloud.mall.fy.shoppingcartservice.dao.ShoppingCartItemMapper;
 import com.cloud.mall.fy.shoppingcartservice.entity.ShoppingCartItem;
 import com.cloud.mall.fy.shoppingcartservice.service.ShoppingCartService;
@@ -86,7 +87,7 @@ public class ShoppingCartServiceImpl extends ServiceImpl<ShoppingCartItemMapper,
     @Override
     public void add(SaveCartItemParam saveCartItemParam) {
         // 校验商品必须存在且库存数量足够
-        checkGoodsExistAndStock(saveCartItemParam);
+        checkGoodsExistAndStock(saveCartItemParam.getGoodsCount(), saveCartItemParam.getGoodsId());
         // 校验购物车加购数量
         checkShoppingCartMaxCount();
 
@@ -106,18 +107,18 @@ public class ShoppingCartServiceImpl extends ServiceImpl<ShoppingCartItemMapper,
     /**
      * 校验商品必须存在且库存数量足够
      */
-    private void checkGoodsExistAndStock(SaveCartItemParam saveCartItemParam) {
-        R<GoodsDetailDto> goods = remoteGoodsService.getGoodsInfoById(saveCartItemParam.getGoodsId(), SecurityConstants.INNER);
+    private void checkGoodsExistAndStock(Integer goodsCount, Long goodsId) {
+        R<GoodsDetailDto> goods = remoteGoodsService.getGoodsInfoById(goodsId, SecurityConstants.INNER);
         GoodsDetailDto goodsInfo = (GoodsDetailDto) processFeignResult(goods);
 
         if (goodsInfo == null) {
             throw new ServiceException("商品不存在");
         }
 
-        if (saveCartItemParam.getGoodsCount() == null || saveCartItemParam.getGoodsCount() < 1) {
+        if (goodsCount == null || goodsCount < 1) {
             throw new ServiceException("加购数量异常");
         }
-        if (saveCartItemParam.getGoodsCount() > goodsInfo.getStockNum()) {
+        if (goodsCount > goodsInfo.getStockNum()) {
             throw new ServiceException("库存不足");
         }
     }
@@ -136,7 +137,7 @@ public class ShoppingCartServiceImpl extends ServiceImpl<ShoppingCartItemMapper,
     }
 
     /**
-     * 校验该用户下是否存在该商品的加购
+     * 获取该用户下存在该商品的加购
      */
     private ShoppingCartItem getSpecificGoodsShoppingCartByGoodsId(Long goodsId) {
         LambdaQueryWrapper<ShoppingCartItem> existWrapper = new QueryWrapper<ShoppingCartItem>().lambda()
@@ -144,5 +145,19 @@ public class ShoppingCartServiceImpl extends ServiceImpl<ShoppingCartItemMapper,
                 .eq(ShoppingCartItem::getGoodsId, goodsId);
 
         return baseMapper.selectOne(existWrapper);
+    }
+
+    @Override
+    public void updateShoppingCartItem(UpdateCartItemParam updateCartItemParam) {
+        ShoppingCartItem cartItem = getSpecificGoodsShoppingCartByGoodsId(updateCartItemParam.getGoodsId());
+
+        if (cartItem == null) {
+            throw new ServiceException("尚未加购该商品");
+        }
+        // 校验商品必须存在且库存数量足够
+        checkGoodsExistAndStock(updateCartItemParam.getGoodsCount(), updateCartItemParam.getGoodsId());
+
+        // 更新
+        baseMapper.updateById(cartItem.setGoodsCount(updateCartItemParam.getGoodsCount()));
     }
 }
