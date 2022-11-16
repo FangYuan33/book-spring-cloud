@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @RestController
 @Api(value = "v1", tags = "新蜂商城购物车相关接口")
@@ -48,5 +49,9 @@ public class ShoppingCartController extends BaseController {
         return AjaxResult.success();
     }
 
-
+    @PostMapping("/listByIds")
+    @ApiOperation(value = "根据购物项id数组查询购物项明细", notes = "确认订单页面使用")
+    public AjaxResult toSettle(@RequestBody List<Long> cartItemIds) {
+        return AjaxResult.success(shoppingCartService.listByItemIds(cartItemIds));
+    }
 }

@@ -20,6 +20,7 @@ import com.cloud.mall.fy.api.dto.ShoppingCartItemDto;
 import com.cloud.mall.fy.api.RemoteGoodsService;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -159,5 +160,19 @@ public class ShoppingCartServiceImpl extends ServiceImpl<ShoppingCartItemMapper,
 
         // 更新
         baseMapper.updateById(cartItem.setGoodsCount(updateCartItemParam.getGoodsCount()));
+    }
+
+    @Override
+    public List<ShoppingCartItemDto> listByItemIds(List<Long> cartItemIds) {
+        if (!cartItemIds.isEmpty()) {
+            List<ShoppingCartItem> shoppingCartItems = baseMapper.selectBatchIds(cartItemIds);
+
+            List<ShoppingCartItemDto> result = new ArrayList<>(shoppingCartItems.size());
+            initialShoppingCartItemGoodsInfo(shoppingCartItems, result);
+
+            return result;
+        } else {
+            return Collections.emptyList();
+        }
     }
 }
