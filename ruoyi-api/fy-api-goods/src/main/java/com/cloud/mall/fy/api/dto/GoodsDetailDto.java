@@ -18,6 +18,9 @@ public class GoodsDetailDto {
     @ApiModelProperty("商品简介")
     private String goodsIntro;
 
+    @ApiModelProperty("商品库存")
+    private Integer stockNum;
+
     @ApiModelProperty("商品图片地址")
     private String goodsCoverImg;
 
