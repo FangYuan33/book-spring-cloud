@@ -40,4 +40,13 @@ public class ShoppingCartController extends BaseController {
         shoppingCartService.updateShoppingCartItem(updateCartItemParam);
         return AjaxResult.success();
     }
+
+    @DeleteMapping("/{shoppingCartItemId}")
+    @ApiOperation(value = "删除购物项", notes = "传参为购物项id")
+    public AjaxResult deleteShoppingCartItem(@PathVariable("shoppingCartItemId") Long shoppingCartItemId) {
+        shoppingCartService.removeById(shoppingCartItemId);
+        return AjaxResult.success();
+    }
+
+
 }
