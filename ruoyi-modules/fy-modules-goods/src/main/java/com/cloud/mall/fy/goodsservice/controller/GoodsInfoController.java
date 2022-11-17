@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -65,7 +66,11 @@ public class GoodsInfoController extends BaseController {
     @InnerAuth
     @GetMapping("/inner/detailList")
     public R<List<GoodsDetailDto>> goodsDetailListInner(@RequestParam("goodsIds") List<Long> goodsIds) {
-        List<GoodsInfo> goodsInfoList = goodsInfoService.listByIds(goodsIds);
-        return R.ok(BeanUtils.copyList(goodsInfoList, GoodsDetailDto.class));
+        if (!goodsIds.isEmpty()) {
+            List<GoodsInfo> goodsInfoList = goodsInfoService.listByIds(goodsIds);
+            return R.ok(BeanUtils.copyList(goodsInfoList, GoodsDetailDto.class));
+        } else {
+            return R.ok(Collections.emptyList());
+        }
     }
 }

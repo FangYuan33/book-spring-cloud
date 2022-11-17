@@ -47,8 +47,12 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
 
-mybatis:
+mybatis-plus:
   mapper-locations: classpath:mapper/system/*Mapper.xml
+  global-config:
+    db-config:
+      # id自增
+      id-type: auto
   type-aliases-package: com.ruoyi.system.domain,com.ruoyi.system.api.domain
 
 swagger:
