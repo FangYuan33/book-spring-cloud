@@ -13,6 +13,7 @@
         <module>fy-api-goods</module>
         <module>fy-api-recommend</module>
         <module>fy-api-shopping-cart</module>
+        <module>fy-api-order</module>
     </modules>
 
     <artifactId>ruoyi-api</artifactId>

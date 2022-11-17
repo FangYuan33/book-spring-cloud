@@ -35,4 +35,9 @@ public class ServiceNameConstants {
      * 购物车服务的service id
      */
     public static final String SHOPPING_CART_SERVICE = "shopping-cart-service";
+
+    /**
+     * 订单服务的service id
+     */
+    public static final String ORDER_SERVICE = "order-service";
 }

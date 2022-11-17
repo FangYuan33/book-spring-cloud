@@ -260,6 +260,12 @@
                 <artifactId>fy-api-shopping-cart</artifactId>
                 <version>${ruoyi.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.ruoyi</groupId>
+                <artifactId>fy-api-order</artifactId>
+                <version>${ruoyi.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

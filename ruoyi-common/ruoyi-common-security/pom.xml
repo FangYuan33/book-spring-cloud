@@ -46,6 +46,12 @@
             <artifactId>fy-api-shopping-cart</artifactId>
         </dependency>
 
+        <!-- fy Api order -->
+        <dependency>
+            <groupId>com.ruoyi</groupId>
+            <artifactId>fy-api-order</artifactId>
+        </dependency>
+
         <!-- RuoYi Common Redis-->
         <dependency>
             <groupId>com.ruoyi</groupId>
