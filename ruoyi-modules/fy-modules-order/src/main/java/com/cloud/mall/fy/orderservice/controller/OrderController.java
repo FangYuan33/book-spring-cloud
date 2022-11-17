@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Api(value = "v1", tags = "新蜂商城订单操作相关接口")
-@RequestMapping("/orders/mall")
+@RequestMapping("/order/mall")
 public class OrderController {
 
 

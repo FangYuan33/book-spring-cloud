@@ -99,6 +99,12 @@ spring:
             - Path=/shopping-cart/**
           filters:
             - StripPrefix=1
+        - id: order-service
+          uri: lb://order-service
+          predicates:
+            - Path=/order/**
+          filters:
+            - StripPrefix=1
 #    sentinel:
 #      # 取消控制台懒加载
 #      eager: true

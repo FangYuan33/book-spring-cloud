@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Api(value = "v1", tags = "后台管理系统订单模块接口")
-@RequestMapping("/orders/admin")
+@RequestMapping("/order/admin")
 public class OrderAdminController {
 
 }
