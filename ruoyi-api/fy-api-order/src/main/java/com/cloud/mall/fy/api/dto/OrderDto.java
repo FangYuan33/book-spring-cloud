@@ -1,14 +1,13 @@
-package com.cloud.mall.fy.orderservice.entity;
+package com.cloud.mall.fy.api.dto;
 
-import com.ruoyi.common.datasource.domain.BaseEntityForMall;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.time.LocalDateTime;
 
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class Order extends BaseEntityForMall {
+public class OrderDto {
+
+    private Long id;
 
     private String orderNo;
 
@@ -26,4 +25,9 @@ public class Order extends BaseEntityForMall {
 
     private String extraInfo;
 
+    private Integer isDeleted;
+
+    private LocalDateTime createTime;
+
+    private LocalDateTime updateTime;
 }
