@@ -12,10 +12,12 @@ import com.cloud.mall.fy.orderservice.service.UserAddressService;
 import com.ruoyi.common.core.utils.bean.BeanUtils;
 import com.ruoyi.common.security.utils.SecurityUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserAddressServiceImpl extends ServiceImpl<UserAddressMapper, UserAddress> implements UserAddressService {
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void saveUserAddress(UserAddressAddParam addressAddParam) {
         UserAddress userAddress = BeanUtils.copyProperties2(addressAddParam, UserAddress.class);
@@ -26,6 +28,7 @@ public class UserAddressServiceImpl extends ServiceImpl<UserAddressMapper, UserA
         baseMapper.insert(userAddress);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void updateUserAddress(UserAddressUpdateParam addressUpdateParam) {
         UserAddress userAddress = BeanUtils.copyProperties2(addressUpdateParam, UserAddress.class);
