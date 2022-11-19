@@ -29,7 +29,7 @@ spring:
         master:
           type: com.alibaba.druid.pool.DruidDataSource
           driver-class-name: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://101.43.163.223:3306/fy_mall_recommend?useUnicode=true&serverTimezone=Asia/Shanghai&characterEncoding=utf8&autoReconnect=true&useSSL=false&allowMultiQueries=true
+          url: jdbc:mysql://101.43.163.223:3306/fy_mall_order?useUnicode=true&serverTimezone=Asia/Shanghai&characterEncoding=utf8&autoReconnect=true&useSSL=false&allowMultiQueries=true
           username: root
           password: Turing
           druid:
@@ -48,7 +48,7 @@ spring:
 
 logging:
   level:
-    com.cloud.mall.fy.recommendservice.dao: debug
+    com.cloud.mall.fy.orderservice.dao: debug
 
 mybatis-plus:
   mapper-locations: classpath:mapper/*Mapper.xml

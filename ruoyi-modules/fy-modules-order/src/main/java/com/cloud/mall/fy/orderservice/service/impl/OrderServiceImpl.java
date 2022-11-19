@@ -10,7 +10,7 @@ import com.cloud.mall.fy.orderservice.controller.param.OrderPayParam;
 import com.cloud.mall.fy.orderservice.controller.param.OrderQueryParam;
 import com.cloud.mall.fy.orderservice.controller.param.OrderSaveParam;
 import com.cloud.mall.fy.orderservice.dao.OrderMapper;
-import com.cloud.mall.fy.orderservice.entity.Order;
+import com.cloud.mall.fy.orderservice.entity.OrderHeader;
 import com.cloud.mall.fy.orderservice.entity.OrderAddress;
 import com.cloud.mall.fy.orderservice.entity.OrderItem;
 import com.cloud.mall.fy.orderservice.entity.UserAddress;
@@ -45,7 +45,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements OrderService {
+public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderHeader> implements OrderService {
 
     @Autowired
     private OrderItemService orderItemService;
@@ -60,12 +60,12 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     @Override
     public List<OrderDto> listByCondition(OrderQueryParam orderQueryParam) {
-        LambdaQueryWrapper<Order> queryWrapper = new QueryWrapper<Order>().lambda()
-                .eq(StringUtils.isNotEmpty(orderQueryParam.getOrderNo()), Order::getOrderNo, orderQueryParam.getOrderNo())
-                .eq(orderQueryParam.getOrderStatus() != null, Order::getOrderStatus, orderQueryParam.getOrderStatus());
-        List<Order> orders = baseMapper.selectList(queryWrapper);
+        LambdaQueryWrapper<OrderHeader> queryWrapper = new QueryWrapper<OrderHeader>().lambda()
+                .eq(StringUtils.isNotEmpty(orderQueryParam.getOrderNo()), OrderHeader::getOrderNo, orderQueryParam.getOrderNo())
+                .eq(orderQueryParam.getOrderStatus() != null, OrderHeader::getOrderStatus, orderQueryParam.getOrderStatus());
+        List<OrderHeader> orderHeaders = baseMapper.selectList(queryWrapper);
 
-        return BeanUtils.copyList(orders, OrderDto.class);
+        return BeanUtils.copyList(orderHeaders, OrderDto.class);
     }
 
     @Override
@@ -75,11 +75,11 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         }
 
         // 获取运单和详情
-        Order order = baseMapper.selectById(orderId);
+        OrderHeader orderHeader = baseMapper.selectById(orderId);
         List<OrderItemDto> orderItems = orderItemService.getOrderItemsByOrderId(orderId);
 
         // 组装返回
-        OrderDetailDto result = BeanUtils.copyProperties2(order, OrderDetailDto.class);
+        OrderDetailDto result = BeanUtils.copyProperties2(orderHeader, OrderDetailDto.class);
         result.setOrderItemList(orderItems);
 
         return result;
@@ -163,14 +163,14 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
      */
     private void saveOrder(List<GoodsDetailDto> goodsList, Map<Long, Integer> goodsCountMap, Long userAddressId) {
         // 初始化订单信息
-        Order order = initialOrderInfo(goodsList, goodsCountMap);
-        if (baseMapper.insert(order) > 0) {
+        OrderHeader orderHeader = initialOrderInfo(goodsList, goodsCountMap);
+        if (baseMapper.insert(orderHeader) > 0) {
             // 初始化订单详情信息
-            ArrayList<OrderItem> orderItems = initialOrderItemList(goodsList, goodsCountMap, order.getId());
+            ArrayList<OrderItem> orderItems = initialOrderItemList(goodsList, goodsCountMap, orderHeader.getId());
             orderItemService.saveBatch(orderItems);
 
             // 初始化订单地址信息
-            OrderAddress orderAddress = initialOrderAddress(order.getId(), userAddressId);
+            OrderAddress orderAddress = initialOrderAddress(orderHeader.getId(), userAddressId);
             orderAddressService.save(orderAddress);
         }
     }
@@ -178,14 +178,14 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     /**
      * 初始化订单头信息
      */
-    private Order initialOrderInfo(List<GoodsDetailDto> goodsList, Map<Long, Integer> goodsCountMap) {
+    private OrderHeader initialOrderInfo(List<GoodsDetailDto> goodsList, Map<Long, Integer> goodsCountMap) {
         String orderNum = Seq.getOrderCode();
         int totalPrice = 0;
         for (GoodsDetailDto goodsDetailDto : goodsList) {
             totalPrice += goodsDetailDto.getSellingPrice() * goodsCountMap.get(goodsDetailDto.getId());
         }
         // 订单号、用户ID、总价、待支付状态
-        return new Order().setOrderNo(orderNum).setUserId(SecurityUtils.getUserId()).setTotalPrice(totalPrice)
+        return new OrderHeader().setOrderNo(orderNum).setUserId(SecurityUtils.getUserId()).setTotalPrice(totalPrice)
                 .setOrderStatus(OrderStatusEnum.WAIT_PAY.getValue());
     }
 
@@ -221,60 +221,60 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     @Override
     public void batchChangeStatusFromTo(List<Long> idList, OrderStatusEnum from, OrderStatusEnum to) {
         if (!CollectionUtils.isEmpty(idList)) {
-            List<Order> orders = baseMapper.selectBatchIds(idList);
+            List<OrderHeader> orderHeaders = baseMapper.selectBatchIds(idList);
 
             // 修改运单状态
-            multipleModifyOrderStatus(orders, from, to);
+            multipleModifyOrderStatus(orderHeaders, from, to);
         }
     }
 
     @Override
     public void cancelOrderByIda(Long orderId) {
-        Order order = baseMapper.selectById(orderId);
+        OrderHeader orderHeader = baseMapper.selectById(orderId);
 
         // 校验是否是当前用户的订单
-        if (!SecurityUtils.getUserId().equals(order.getUserId())) {
+        if (!SecurityUtils.getUserId().equals(orderHeader.getUserId())) {
             throw new ServiceException("无操作权限");
         }
         // 状态判断
-        if (OrderStatusEnum.DEAL_SUCCESS.getValue().compareTo(order.getOrderStatus()) <= 0) {
+        if (OrderStatusEnum.DEAL_SUCCESS.getValue().compareTo(orderHeader.getOrderStatus()) <= 0) {
             throw new ServiceException("订单状态无法取消");
         }
 
         // 修改状态
-        multipleModifyOrderStatus(Collections.singletonList(order), null, OrderStatusEnum.CLOSED_BY_HAND);
+        multipleModifyOrderStatus(Collections.singletonList(orderHeader), null, OrderStatusEnum.CLOSED_BY_HAND);
     }
 
     @Override
     public void finishOrder(Long orderId) {
-        Order order = baseMapper.selectById(orderId);
+        OrderHeader orderHeader = baseMapper.selectById(orderId);
 
         // 校验是否是当前用户的订单
-        if (!SecurityUtils.getUserId().equals(order.getUserId())) {
+        if (!SecurityUtils.getUserId().equals(orderHeader.getUserId())) {
             throw new ServiceException("无操作权限");
         }
         // 状态判断
-        if (!OrderStatusEnum.SEND.getValue().equals(order.getOrderStatus())) {
+        if (!OrderStatusEnum.SEND.getValue().equals(orderHeader.getOrderStatus())) {
             throw new ServiceException("订单当前无法确认收货");
         }
 
-        multipleModifyOrderStatus(Collections.singletonList(order), null, OrderStatusEnum.DEAL_SUCCESS);
+        multipleModifyOrderStatus(Collections.singletonList(orderHeader), null, OrderStatusEnum.DEAL_SUCCESS);
     }
 
     @Override
     public void paySuccess(OrderPayParam orderPayParam) {
-        Order order = baseMapper.selectById(orderPayParam.getId());
+        OrderHeader orderHeader = baseMapper.selectById(orderPayParam.getId());
 
-        if (order != null) {
+        if (orderHeader != null) {
             // 状态判断
-            if (!OrderStatusEnum.WAIT_PAY.getValue().equals(order.getOrderStatus())) {
+            if (!OrderStatusEnum.WAIT_PAY.getValue().equals(orderHeader.getOrderStatus())) {
                 throw new ServiceException("订单状态异常");
             }
             // 支付类型、支付时间、支付状态
-            order.setPayType(orderPayParam.getPayType()).setPayTime(LocalDateTime.now())
+            orderHeader.setPayType(orderPayParam.getPayType()).setPayTime(LocalDateTime.now())
                     .setPayStatus(PayStatusEnum.PAY_SUCCESS.getPayStatus());
             // 修改订单状态为已支付
-            multipleModifyOrderStatus(Collections.singletonList(order), OrderStatusEnum.WAIT_PAY, OrderStatusEnum.ALREADY_PAY);
+            multipleModifyOrderStatus(Collections.singletonList(orderHeader), OrderStatusEnum.WAIT_PAY, OrderStatusEnum.ALREADY_PAY);
         }
     }
 
@@ -284,16 +284,16 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
      * @param from 条件状态，符合该条件则修改可为空，为空时直接修改为目的状态
      * @param to   目的状态
      */
-    private void multipleModifyOrderStatus(List<Order> orders, OrderStatusEnum from, OrderStatusEnum to) {
-        for (Order order : orders) {
-            if (from != null && from.getValue().equals(order.getOrderStatus())) {
-                log.info("{} {} -> {}", order.getOrderNo(), from.getName(), to.getName());
+    private void multipleModifyOrderStatus(List<OrderHeader> orderHeaders, OrderStatusEnum from, OrderStatusEnum to) {
+        for (OrderHeader orderHeader : orderHeaders) {
+            if (from != null && from.getValue().equals(orderHeader.getOrderStatus())) {
+                log.info("{} {} -> {}", orderHeader.getOrderNo(), from.getName(), to.getName());
             } else {
-                OrderStatusEnum orderStatusEnum = OrderStatusEnum.parse(order.getOrderStatus());
-                log.info("{} {} -> {}", order.getOrderNo(), orderStatusEnum.getName(), to.getName());
+                OrderStatusEnum orderStatusEnum = OrderStatusEnum.parse(orderHeader.getOrderStatus());
+                log.info("{} {} -> {}", orderHeader.getOrderNo(), orderStatusEnum.getName(), to.getName());
             }
-            order.setOrderStatus(to.getValue());
-            baseMapper.updateById(order);
+            orderHeader.setOrderStatus(to.getValue());
+            baseMapper.updateById(orderHeader);
         }
     }
 }

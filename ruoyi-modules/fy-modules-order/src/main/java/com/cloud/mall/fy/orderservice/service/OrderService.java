@@ -6,12 +6,12 @@ import com.cloud.mall.fy.api.dto.OrderDto;
 import com.cloud.mall.fy.orderservice.controller.param.OrderPayParam;
 import com.cloud.mall.fy.orderservice.controller.param.OrderQueryParam;
 import com.cloud.mall.fy.orderservice.controller.param.OrderSaveParam;
-import com.cloud.mall.fy.orderservice.entity.Order;
+import com.cloud.mall.fy.orderservice.entity.OrderHeader;
 import com.ruoyi.common.core.enums.OrderStatusEnum;
 
 import java.util.List;
 
-public interface OrderService extends IService<Order> {
+public interface OrderService extends IService<OrderHeader> {
 
     /**
      * 条件查询运单列表

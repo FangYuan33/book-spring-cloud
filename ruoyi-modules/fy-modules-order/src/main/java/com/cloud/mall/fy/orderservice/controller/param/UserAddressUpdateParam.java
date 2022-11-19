@@ -15,9 +15,6 @@ public class UserAddressUpdateParam {
     @ApiModelProperty("地址id")
     private Long id;
 
-    @ApiModelProperty("用户id")
-    private Long userId;
-
     @ApiModelProperty("收件人名称")
     private String userName;
 

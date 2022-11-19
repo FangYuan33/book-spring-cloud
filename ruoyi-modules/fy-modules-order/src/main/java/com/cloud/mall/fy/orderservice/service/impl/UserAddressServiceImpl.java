@@ -2,6 +2,7 @@ package com.cloud.mall.fy.orderservice.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cloud.mall.fy.api.dto.UserAddressDto;
 import com.cloud.mall.fy.orderservice.controller.param.UserAddressAddParam;
@@ -21,6 +22,7 @@ public class UserAddressServiceImpl extends ServiceImpl<UserAddressMapper, UserA
     @Override
     public void saveUserAddress(UserAddressAddParam addressAddParam) {
         UserAddress userAddress = BeanUtils.copyProperties2(addressAddParam, UserAddress.class);
+        userAddress.setUserId(SecurityUtils.getUserId());
 
         // 默认地址处理
         onlyOneDefaultAddress(userAddress);
@@ -45,9 +47,11 @@ public class UserAddressServiceImpl extends ServiceImpl<UserAddressMapper, UserA
     private void onlyOneDefaultAddress(UserAddress userAddress) {
         if (Integer.valueOf(1).equals(userAddress.getDefaultFlag())) {
             UserAddress defaultAddress = getDefaultUserAddressFromDB();
-            defaultAddress.setDefaultFlag(0);
+            if (defaultAddress != null) {
+                defaultAddress.setDefaultFlag(0);
 
-            baseMapper.updateById(defaultAddress);
+                baseMapper.updateById(defaultAddress);
+            }
         }
     }
 

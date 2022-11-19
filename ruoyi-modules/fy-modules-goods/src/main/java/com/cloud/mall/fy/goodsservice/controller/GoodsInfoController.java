@@ -76,7 +76,7 @@ public class GoodsInfoController extends BaseController {
     }
 
     @InnerAuth
-    @PostMapping("/info/inner/reduceCount")
+    @PostMapping("/inner/reduceCount")
     public R<Boolean> reduceCount(@RequestBody List<StockNumDto> stockNumDtoList) {
         if (!stockNumDtoList.isEmpty()) {
             return R.ok(goodsInfoService.batchReduceCount(stockNumDtoList));

@@ -1,8 +1,10 @@
 package com.cloud.mall.fy.api.dto;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class StockNumDto {
 
     private Long goodsId;

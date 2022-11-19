@@ -31,10 +31,10 @@
     goods_detail_content
   </sql>
 
-    <update id="updateStockNum">
-        <foreach collection="stockNumDtoList" item="stockNumDTO">
+    <update id="updateStockNum" parameterType="java.util.List">
+        <foreach collection="arg0" item="stockNumDTO">
             update goods_info set stock_num = stock_num - #{stockNumDTO.goodsCount}
-            where goods_id = #{stockNumDTO.goodsId} and stock_num >= #{stockNumDTO.goodsCount} and goods_sell_status = 0;
+            where id = #{stockNumDTO.goodsId} and stock_num >= #{stockNumDTO.goodsCount};
         </foreach>
     </update>
 </mapper>

@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Data
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
-public class Order extends BaseEntityForMall {
+public class OrderHeader extends BaseEntityForMall {
 
     private String orderNo;
 
