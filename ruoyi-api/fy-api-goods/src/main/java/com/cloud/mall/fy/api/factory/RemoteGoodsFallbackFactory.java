@@ -2,6 +2,7 @@ package com.cloud.mall.fy.api.factory;
 
 import com.cloud.mall.fy.api.RemoteGoodsService;
 import com.cloud.mall.fy.api.dto.GoodsDetailDto;
+import com.cloud.mall.fy.api.dto.StockNumDto;
 import com.ruoyi.common.core.domain.R;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.FallbackFactory;
@@ -32,6 +33,11 @@ public class RemoteGoodsFallbackFactory implements FallbackFactory<RemoteGoodsSe
             @Override
             public R<List<GoodsDetailDto>> getGoodsListById(List<Long> goodsIds, String source) {
                 return R.fail("获取商品列表信息失败: " + cause.getMessage());
+            }
+
+            @Override
+            public R<Boolean> reduceCount(List<StockNumDto> stockNumDtoList, String source) {
+                return R.fail("扣减商品库存失败: " + cause.getMessage());
             }
         };
     }

@@ -1,11 +1,14 @@
 package com.cloud.mall.fy.shoppingcartservice.controller;
 
+import com.cloud.mall.fy.api.dto.ShoppingCartItemDto;
 import com.cloud.mall.fy.shoppingcartservice.controller.param.SaveCartItemParam;
 import com.cloud.mall.fy.shoppingcartservice.controller.param.UpdateCartItemParam;
 import com.cloud.mall.fy.shoppingcartservice.service.ShoppingCartService;
+import com.ruoyi.common.core.domain.R;
 import com.ruoyi.common.core.web.controller.BaseController;
 import com.ruoyi.common.core.web.domain.AjaxResult;
 import com.ruoyi.common.core.web.page.TableDataInfo;
+import com.ruoyi.common.security.annotation.InnerAuth;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
@@ -42,16 +45,21 @@ public class ShoppingCartController extends BaseController {
         return AjaxResult.success();
     }
 
-    @DeleteMapping("/{shoppingCartItemId}")
+    @InnerAuth
+    @PostMapping("/delete")
     @ApiOperation(value = "删除购物项", notes = "传参为购物项id")
-    public AjaxResult deleteShoppingCartItem(@PathVariable("shoppingCartItemId") Long shoppingCartItemId) {
-        shoppingCartService.removeById(shoppingCartItemId);
-        return AjaxResult.success();
+    public R<Boolean> deleteShoppingCartItem(@RequestBody List<Long> shoppingCartItemIdList) {
+        if (shoppingCartItemIdList.isEmpty()) {
+            return R.fail(false);
+        } else {
+            return R.ok(shoppingCartService.removeBatchByIds(shoppingCartItemIdList));
+        }
     }
 
+    @InnerAuth
     @PostMapping("/listByIds")
     @ApiOperation(value = "根据购物项id数组查询购物项明细", notes = "确认订单页面使用")
-    public AjaxResult toSettle(@RequestBody List<Long> cartItemIds) {
-        return AjaxResult.success(shoppingCartService.listByItemIds(cartItemIds));
+    public R<List<ShoppingCartItemDto>> toSettle(@RequestBody List<Long> cartItemIds) {
+        return R.ok(shoppingCartService.listByItemIds(cartItemIds));
     }
 }

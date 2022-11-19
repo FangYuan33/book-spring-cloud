@@ -3,6 +3,7 @@ package com.cloud.mall.fy.goodsservice.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.cloud.mall.fy.api.dto.StockNumDto;
 import com.cloud.mall.fy.goodsservice.controller.param.GoodsAddParam;
 import com.cloud.mall.fy.api.dto.GoodsDetailDto;
 import com.cloud.mall.fy.goodsservice.controller.param.GoodsEditParam;
@@ -58,5 +59,10 @@ public class GoodsInfoServiceImpl extends ServiceImpl<GoodsInfoMapper, GoodsInfo
         update.setId(goodsEditParam.getGoodsId());
 
         baseMapper.updateById(update);
+    }
+
+    @Override
+    public boolean batchReduceCount(List<StockNumDto> stockNumDtoList) {
+        return baseMapper.updateStockNum(stockNumDtoList) > 0;
     }
 }

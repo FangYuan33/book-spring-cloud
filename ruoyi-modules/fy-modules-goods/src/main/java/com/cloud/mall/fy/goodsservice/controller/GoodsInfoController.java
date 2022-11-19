@@ -1,6 +1,7 @@
 package com.cloud.mall.fy.goodsservice.controller;
 
 import com.cloud.mall.fy.api.dto.GoodsDetailDto;
+import com.cloud.mall.fy.api.dto.StockNumDto;
 import com.cloud.mall.fy.goodsservice.controller.param.GoodsAddParam;
 import com.cloud.mall.fy.goodsservice.controller.param.GoodsEditParam;
 import com.cloud.mall.fy.goodsservice.controller.param.GoodsListParam;
@@ -71,6 +72,16 @@ public class GoodsInfoController extends BaseController {
             return R.ok(BeanUtils.copyList(goodsInfoList, GoodsDetailDto.class));
         } else {
             return R.ok(Collections.emptyList());
+        }
+    }
+
+    @InnerAuth
+    @PostMapping("/info/inner/reduceCount")
+    public R<Boolean> reduceCount(@RequestBody List<StockNumDto> stockNumDtoList) {
+        if (!stockNumDtoList.isEmpty()) {
+            return R.ok(goodsInfoService.batchReduceCount(stockNumDtoList));
+        } else {
+            return R.fail(false);
         }
     }
 }

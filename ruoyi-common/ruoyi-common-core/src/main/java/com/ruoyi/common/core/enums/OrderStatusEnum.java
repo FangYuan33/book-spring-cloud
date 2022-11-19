@@ -5,7 +5,7 @@ import com.ruoyi.common.core.exception.ServiceException;
 /**
  * 订单状态:0.待支付 1.已支付 2.配货完成 3:出库成功 4.交易成功 -1.手动关闭 -2.超时关闭 -3.商家关闭
  */
-public enum OrderStatus {
+public enum OrderStatusEnum {
     WAIT_PAY("待支付", 0),
     ALREADY_PAY("已支付", 1),
     CHECK_DONE("配货完成", 2),
@@ -19,7 +19,7 @@ public enum OrderStatus {
 
     private final Integer value;
 
-    OrderStatus(String name, Integer value) {
+    OrderStatusEnum(String name, Integer value) {
         this.name = name;
         this.value = value;
     }
@@ -32,10 +32,10 @@ public enum OrderStatus {
         return value;
     }
 
-    public static OrderStatus parse(Integer value) {
-        for (OrderStatus orderStatus : values()) {
-            if (orderStatus.getValue().equals(value)) {
-                return orderStatus;
+    public static OrderStatusEnum parse(Integer value) {
+        for (OrderStatusEnum orderStatusEnum : values()) {
+            if (orderStatusEnum.getValue().equals(value)) {
+                return orderStatusEnum;
             }
         }
         throw new ServiceException("订单状态异常");

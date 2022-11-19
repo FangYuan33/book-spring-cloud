@@ -3,10 +3,10 @@ package com.cloud.mall.fy.orderservice.entity;
 import com.ruoyi.common.datasource.domain.BaseEntityForMall;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import java.util.Date;
+import lombok.experimental.Accessors;
 
 @Data
+@Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
 public class OrderItem extends BaseEntityForMall {
 

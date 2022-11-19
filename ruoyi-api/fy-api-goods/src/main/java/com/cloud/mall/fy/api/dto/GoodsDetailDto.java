@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * 商品详情页VO
+ * 商品详情页Dto
  */
 @Data
 public class GoodsDetailDto {
@@ -38,4 +38,10 @@ public class GoodsDetailDto {
 
     @ApiModelProperty("商品详情字段")
     private String goodsDetailContent;
+
+    /**
+     * 商品上架状态 1-上架 0-下架
+     */
+    @ApiModelProperty("商品上架状态")
+    private Integer goodsSellStatus;
 }

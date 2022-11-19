@@ -2,7 +2,7 @@ package com.cloud.mall.fy.orderservice.controller;
 
 import com.cloud.mall.fy.orderservice.controller.param.OrderQueryParam;
 import com.cloud.mall.fy.orderservice.service.OrderService;
-import com.ruoyi.common.core.enums.OrderStatus;
+import com.ruoyi.common.core.enums.OrderStatusEnum;
 import com.ruoyi.common.core.web.controller.BaseController;
 import com.ruoyi.common.core.web.domain.AjaxResult;
 import com.ruoyi.common.core.web.page.TableDataInfo;
@@ -38,21 +38,21 @@ public class OrderAdminController extends BaseController {
     @PutMapping(value = "/checkDone")
     @ApiOperation(value = "修改订单状态为配货成功", notes = "批量修改")
     public AjaxResult checkDone(@RequestBody List<Long> idList) {
-        orderService.batchChangeStatusFromTo(idList, OrderStatus.ALREADY_PAY, OrderStatus.CHECK_DONE);
+        orderService.batchChangeStatusFromTo(idList, OrderStatusEnum.ALREADY_PAY, OrderStatusEnum.CHECK_DONE);
         return AjaxResult.success();
     }
 
     @PutMapping(value = "/checkSend")
     @ApiOperation(value = "修改订单状态为已出库", notes = "批量修改")
     public AjaxResult checkSend(@RequestBody List<Long> idList) {
-        orderService.batchChangeStatusFromTo(idList, OrderStatus.CHECK_DONE, OrderStatus.SEND);
+        orderService.batchChangeStatusFromTo(idList, OrderStatusEnum.CHECK_DONE, OrderStatusEnum.SEND);
         return AjaxResult.success();
     }
 
     @PutMapping(value = "/close")
     @ApiOperation(value = "修改订单状态为商家关闭", notes = "批量修改")
     public AjaxResult closeOrder(@RequestBody List<Long> idList) {
-        orderService.batchChangeStatusFromTo(idList, null, OrderStatus.CLOSED_BY_BUSINESS);
+        orderService.batchChangeStatusFromTo(idList, null, OrderStatusEnum.CLOSED_BY_BUSINESS);
         return AjaxResult.success();
     }
 }

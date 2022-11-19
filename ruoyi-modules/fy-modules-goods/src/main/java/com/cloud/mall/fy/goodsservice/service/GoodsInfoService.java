@@ -1,6 +1,7 @@
 package com.cloud.mall.fy.goodsservice.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.cloud.mall.fy.api.dto.StockNumDto;
 import com.cloud.mall.fy.goodsservice.controller.param.GoodsAddParam;
 import com.cloud.mall.fy.api.dto.GoodsDetailDto;
 import com.cloud.mall.fy.goodsservice.controller.param.GoodsEditParam;
@@ -33,4 +34,9 @@ public interface GoodsInfoService extends IService<GoodsInfo> {
      * 根据ID编辑
      */
     void editById(GoodsEditParam goodsEditParam);
+
+    /**
+     * 批量扣减商品库存
+     */
+    boolean batchReduceCount(List<StockNumDto> stockNumDtoList);
 }
