@@ -57,6 +57,25 @@ mybatis-plus:
       # id自增
       id-type: auto
 
+seata:
+  enabled: true
+  application-id: goods-server
+  tx-service-group: save-order-group
+  service:
+    vgroup-mapping.save-order-group: default
+  registry:
+    type: nacos
+    nacos:
+      application: seata-server
+      server-addr: 101.43.163.223:8848
+      username: nacos
+      password: nacos
+      group: SEATA_GROUP
+      cluster: default
+  client:
+    undo:
+      log-serialization: kryo
+
 swagger:
   enabled: true
   basePackage: com.cloud.mall.fy.goodsservice.controller

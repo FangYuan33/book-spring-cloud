@@ -29,6 +29,7 @@ import com.ruoyi.common.core.utils.bean.BeanUtils;
 import com.ruoyi.common.core.utils.feign.OpenFeignResultUtil;
 import com.ruoyi.common.core.utils.uuid.Seq;
 import com.ruoyi.common.security.utils.SecurityUtils;
+import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -86,6 +87,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     @SuppressWarnings("unchecked")
     @Transactional
+    @GlobalTransactional
     @Override
     public void saveOrder(OrderSaveParam orderSaveParam) {
         // 参数校验
