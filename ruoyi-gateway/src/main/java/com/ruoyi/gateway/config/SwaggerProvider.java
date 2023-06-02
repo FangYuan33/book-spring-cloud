@@ -38,8 +38,6 @@ public class SwaggerProvider implements SwaggerResourcesProvider, WebFluxConfigu
 
     /**
      * 聚合其他服务接口
-     *
-     * @return
      */
     @Override
     public List<SwaggerResource> get() {
@@ -69,7 +67,7 @@ public class SwaggerProvider implements SwaggerResourcesProvider, WebFluxConfigu
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        /** swagger-ui 地址 */
+        // swagger-ui 地址
         registry.addResourceHandler("/swagger-ui/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/");
     }

@@ -2,6 +2,8 @@ package com.ruoyi.gateway.handler;
 
 import java.util.Optional;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,20 +17,22 @@ import springfox.documentation.swagger.web.SwaggerResourcesProvider;
 import springfox.documentation.swagger.web.UiConfiguration;
 import springfox.documentation.swagger.web.UiConfigurationBuilder;
 
+@Slf4j
 @RestController
 @RequestMapping("/swagger-resources")
-public class SwaggerHandler {
+public class SwaggerHandler implements InitializingBean {
     @Autowired(required = false)
     private SecurityConfiguration securityConfiguration;
 
     @Autowired(required = false)
     private UiConfiguration uiConfiguration;
 
-    private final SwaggerResourcesProvider swaggerResources;
-
     @Autowired
-    public SwaggerHandler(SwaggerResourcesProvider swaggerResources) {
-        this.swaggerResources = swaggerResources;
+    private SwaggerResourcesProvider swaggerResources;
+
+    @Override
+    public void afterPropertiesSet() {
+        log.info("Can you find this info witch about swagger: http://localhost:8080/swagger-ui/index.html");
     }
 
     @GetMapping("/configuration/security")

@@ -114,7 +114,8 @@ public class SwaggerAutoConfiguration {
                 .license(swaggerProperties.getLicense())
                 .licenseUrl(swaggerProperties.getLicenseUrl())
                 .termsOfServiceUrl(swaggerProperties.getTermsOfServiceUrl())
-                .contact(new Contact(swaggerProperties.getContact().getName(), swaggerProperties.getContact().getUrl(), swaggerProperties.getContact().getEmail()))
+                .contact(new Contact(swaggerProperties.getContact().getName(), swaggerProperties.getContact().getUrl(),
+                        swaggerProperties.getContact().getEmail()))
                 .version(swaggerProperties.getVersion())
                 .build();
     }
