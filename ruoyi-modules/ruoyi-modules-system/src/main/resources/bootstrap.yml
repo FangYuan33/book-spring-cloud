@@ -15,7 +15,7 @@ spring:
       primary: master
       datasource:
         master:
-          url: jdbc:mysql://localhost:3306/ry-cloud?useUnicode=true&serverTimezone=Asia/Shanghai&characterEncoding=utf8&autoReconnect=true&useSSL=false&allowMultiQueries=true
+          url: jdbc:mysql://localhost:3306/ry_cloud?useUnicode=true&serverTimezone=Asia/Shanghai&characterEncoding=utf8&autoReconnect=true&useSSL=false&allowMultiQueries=true
           username: root
           password: Turing
           driver-class-name: com.mysql.cj.jdbc.Driver
@@ -26,18 +26,18 @@ spring:
             min-idle: 5
             max-wait: 60000
   redis:
-    host: localhost
+    host: 101.42.3.240
     password: 123456
   cloud:
     nacos:
       discovery:
         # 服务注册地址
-        server-addr: localhost:8848
+        server-addr: 101.42.3.240:8848
         password: nacos
         username: nacos
       config:
         # 配置中心地址
-        server-addr: localhost:8848
+        server-addr: 101.42.3.240:8848
         # 配置文件格式
         file-extension: yaml
         # 共享配置
