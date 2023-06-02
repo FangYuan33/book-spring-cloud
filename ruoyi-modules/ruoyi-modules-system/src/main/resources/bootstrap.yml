@@ -27,7 +27,7 @@ spring:
             max-wait: 60000
   redis:
     host: localhost
-    password: Turing
+    password: 123456
   cloud:
     nacos:
       discovery:
