@@ -14,6 +14,14 @@
 - 商品详情
 - 商品编辑
 
+#### GoodsCategory
+
+- 商品分类新增
+- 商品分类批量删除
+- 商品分类详情
+- 商品分类修改
+- 商品分类列表
+
 ### [Spring Cloud Alibaba 大型微服务项目实战](https://s.juejin.cn/ds/6tgXRVH/)
 
 ### 1. 为什么要使用微服务？
