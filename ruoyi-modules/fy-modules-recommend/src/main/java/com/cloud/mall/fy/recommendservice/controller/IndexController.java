@@ -17,7 +17,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
-@Api(value = "v1", tags = "新蜂商城首页接口")
+@Api(value = "v1", tags = "首页接口")
 @RequestMapping("/recommend/mall/index")
 public class IndexController {
 

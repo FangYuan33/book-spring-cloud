@@ -11,7 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@Api(value = "v1", tags = "新蜂商城个人地址相关接口")
+@Api(value = "v1", tags = "个人地址相关接口")
 @RequestMapping("/order/userAddress")
 public class UserAddressController {
 

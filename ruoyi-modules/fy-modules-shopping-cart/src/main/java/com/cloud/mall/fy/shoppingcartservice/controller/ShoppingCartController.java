@@ -17,7 +17,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
-@Api(value = "v1", tags = "新蜂商城购物车相关接口")
+@Api(value = "v1", tags = "购物车相关接口")
 @RequestMapping("/shopping-cart")
 public class ShoppingCartController extends BaseController {
 
