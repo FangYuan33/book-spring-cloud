@@ -1,4 +1,4 @@
-SET NAMES utf8mb4;
+CREATE DATABASE `ry_cloud` DEFAULT CHARACTER SET utf8mb4;
 
 -- ----------------------------
 -- 1、部门表

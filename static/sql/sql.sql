@@ -1,4 +1,6 @@
-# 商品分类表
+# 商品表
+CREATE DATABASE `fy_mall_goods` DEFAULT CHARACTER SET utf8mb4;
+
 CREATE TABLE `goods_category`
 (
     `id`             bigint(20) NOT NULL AUTO_INCREMENT COMMENT '分类id',
@@ -14,7 +16,6 @@ CREATE TABLE `goods_category`
     PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
-# 商品信息表
 CREATE TABLE `goods_info`
 (
     `id`                   bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '商品表主键id',
@@ -47,6 +48,10 @@ CREATE TABLE IF NOT EXISTS `undo_log`
     `log_modified` DATETIME(6) NOT NULL COMMENT 'modify datetime',
     UNIQUE KEY `ux_undo_log` (`xid`, `branch_id`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COMMENT = 'AT transaction mode undo table';
+
+
+# 订单表
+CREATE DATABASE `fy_mall_order` DEFAULT CHARACTER SET utf8mb4;
 
 CREATE TABLE `order_header` (
     `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '订单表主键id',
@@ -115,6 +120,9 @@ CREATE TABLE IF NOT EXISTS `undo_log`
     UNIQUE KEY `ux_undo_log` (`xid`, `branch_id`)
     ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COMMENT ='AT transaction mode undo table';
 
+# 推荐表
+CREATE DATABASE `fy_mall_recommend` DEFAULT CHARACTER SET utf8mb4;
+
 CREATE TABLE `index_config` (
 `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '首页配置项主键id',
 `config_name` varchar(50) NOT NULL DEFAULT '' COMMENT '显示字符(配置搜索时不可为空，其他可为空)',
@@ -176,6 +184,9 @@ VALUES
     (5,'https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/banner2.png','https://juejin.cn/book/7085254558678515742',0,0,'2021-11-29 00:00:00',0,'2021-11-29 00:00:00',0),
     (6,'https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/banner1.png','##',101,1,'2021-09-19 23:37:40',0,'2021-11-07 00:15:52',0),
     (7,'https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/banner2.png','##',99,1,'2021-09-19 23:37:58',0,'2021-10-22 00:15:01',0);
+
+# 购物车表
+CREATE DATABASE `fy_mall_shopping_cart` DEFAULT CHARACTER SET utf8mb4;
 
 CREATE TABLE `shopping_cart_item` (
                                       `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '购物项主键id',
