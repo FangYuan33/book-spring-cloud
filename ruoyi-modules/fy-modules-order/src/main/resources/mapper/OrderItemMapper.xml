@@ -6,7 +6,6 @@
         <result column="order_id" jdbcType="BIGINT" property="orderId"/>
         <result column="goods_id" jdbcType="BIGINT" property="goodsId"/>
         <result column="goods_name" jdbcType="VARCHAR" property="goodsName"/>
-        <result column="goods_cover_img" jdbcType="VARCHAR" property="goodsCoverImg"/>
         <result column="selling_price" jdbcType="INTEGER" property="sellingPrice"/>
         <result column="goods_count" jdbcType="INTEGER" property="goodsCount"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>

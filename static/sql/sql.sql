@@ -195,7 +195,9 @@ CREATE TABLE `shopping_cart_item` (
                                       `goods_count` int(11) NOT NULL DEFAULT '1' COMMENT '数量(最大为5)',
                                       `is_deleted` tinyint(4) NOT NULL DEFAULT '0' COMMENT '删除标识字段(0-未删除 1-已删除)',
                                       `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-                                      `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最新修改时间',
+                                      `create_user` int(11) NOT NULL DEFAULT '0' COMMENT '创建者id',
+                                      `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
+                                      `update_user` int(11) NOT NULL DEFAULT '0' COMMENT '修改者id',
                                       PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

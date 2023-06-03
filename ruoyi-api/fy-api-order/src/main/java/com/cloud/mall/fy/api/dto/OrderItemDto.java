@@ -20,9 +20,6 @@ public class OrderItemDto implements Serializable {
     @ApiModelProperty("商品名称")
     private String goodsName;
 
-    @ApiModelProperty("商品图片")
-    private String goodsCoverImg;
-
     @ApiModelProperty("商品价格")
     private Integer sellingPrice;
 }

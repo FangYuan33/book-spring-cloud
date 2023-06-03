@@ -45,9 +45,16 @@ public class ShoppingCartController extends BaseController {
         return AjaxResult.success();
     }
 
-    @InnerAuth
-    @PostMapping("/delete")
+    @DeleteMapping("/delete/{goodsId}")
     @ApiOperation(value = "删除购物项", notes = "传参为购物项id")
+    public AjaxResult deleteById(@PathVariable Long goodsId) {
+        shoppingCartService.removeByGoodsId(goodsId);
+
+        return AjaxResult.success();
+    }
+    @InnerAuth
+    @PostMapping("/inner/delete")
+    @ApiOperation(value = "删除购物项（内部调用）", notes = "传参为购物项id")
     public R<Boolean> deleteShoppingCartItem(@RequestBody List<Long> shoppingCartItemIdList) {
         if (shoppingCartItemIdList.isEmpty()) {
             return R.fail(false);
@@ -57,8 +64,8 @@ public class ShoppingCartController extends BaseController {
     }
 
     @InnerAuth
-    @PostMapping("/listByIds")
-    @ApiOperation(value = "根据购物项id数组查询购物项明细", notes = "确认订单页面使用")
+    @PostMapping("/inner/listByIds")
+    @ApiOperation(value = "根据购物项id数组查询购物项明细（内部调用）", notes = "确认订单页面使用")
     public R<List<ShoppingCartItemDto>> toSettle(@RequestBody List<Long> cartItemIds) {
         return R.ok(shoppingCartService.listByItemIds(cartItemIds));
     }

@@ -137,6 +137,33 @@ public class ShoppingCartServiceImpl extends ServiceImpl<ShoppingCartItemMapper,
         }
     }
 
+    @Override
+    public void updateShoppingCartItem(UpdateCartItemParam updateCartItemParam) {
+        // 获取对应的加购商品
+        ShoppingCartItem shoppingCartItem = baseMapper.selectById(updateCartItemParam.getShoppingCartItemId());
+        if (shoppingCartItem == null) {
+            throw new ServiceException("尚未加购该商品");
+        }
+
+        // 校验商品必须存在且库存数量足够
+        checkGoodsExistAndStock(updateCartItemParam.getGoodsCount(), shoppingCartItem.getGoodsId());
+
+        // 更新
+        baseMapper.updateById(shoppingCartItem.setGoodsCount(updateCartItemParam.getGoodsCount()));
+    }
+
+    @Override
+    public void removeByGoodsId(Long goodsId) {
+        // 获取对应的加购商品
+        ShoppingCartItem shoppingCartItem = getSpecificGoodsShoppingCartByGoodsId(goodsId);
+        if (shoppingCartItem == null) {
+            throw new ServiceException("尚未加购该商品");
+        }
+
+        // 移除
+        baseMapper.deleteById(shoppingCartItem.getId());
+    }
+
     /**
      * 获取该用户下存在该商品的加购
      */
@@ -146,20 +173,6 @@ public class ShoppingCartServiceImpl extends ServiceImpl<ShoppingCartItemMapper,
                 .eq(ShoppingCartItem::getGoodsId, goodsId);
 
         return baseMapper.selectOne(existWrapper);
-    }
-
-    @Override
-    public void updateShoppingCartItem(UpdateCartItemParam updateCartItemParam) {
-        ShoppingCartItem cartItem = getSpecificGoodsShoppingCartByGoodsId(updateCartItemParam.getGoodsId());
-
-        if (cartItem == null) {
-            throw new ServiceException("尚未加购该商品");
-        }
-        // 校验商品必须存在且库存数量足够
-        checkGoodsExistAndStock(updateCartItemParam.getGoodsCount(), updateCartItemParam.getGoodsId());
-
-        // 更新
-        baseMapper.updateById(cartItem.setGoodsCount(updateCartItemParam.getGoodsCount()));
     }
 
     @Override

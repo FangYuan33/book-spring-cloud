@@ -17,8 +17,6 @@ public class OrderItem extends BaseEntityForMall {
 
     private String goodsName;
 
-    private String goodsCoverImg;
-
     private Integer sellingPrice;
 
     private Integer goodsCount;

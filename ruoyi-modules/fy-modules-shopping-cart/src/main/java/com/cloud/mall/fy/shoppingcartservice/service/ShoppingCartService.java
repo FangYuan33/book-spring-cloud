@@ -29,6 +29,13 @@ public interface ShoppingCartService extends IService<ShoppingCartItem> {
     void updateShoppingCartItem(UpdateCartItemParam updateCartItemParam);
 
     /**
+     * 根据商品ID将其移除购物车
+     *
+     * @param goodsId 商品ID
+     */
+    void removeByGoodsId(Long goodsId);
+
+    /**
      * 根据ID获取多条购物车数据
      */
     List<ShoppingCartItemDto> listByItemIds(List<Long> cartItemIds);

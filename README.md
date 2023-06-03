@@ -23,6 +23,15 @@
 - 商品分类修改
 - 商品分类列表（未分页）
 
+#### fy-modules-shopping-cart
+
+##### ShoppingCart
+
+- 购物车商品新增
+- 购物车商品列表（未分页）
+- 购物车商品删除
+- 购物车商品修改
+
 ### [Spring Cloud Alibaba 大型微服务项目实战](https://s.juejin.cn/ds/6tgXRVH/)
 
 ### 1. 为什么要使用微服务？

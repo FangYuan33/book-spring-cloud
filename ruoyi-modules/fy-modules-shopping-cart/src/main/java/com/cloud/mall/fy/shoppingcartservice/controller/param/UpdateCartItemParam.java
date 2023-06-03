@@ -14,6 +14,6 @@ public class UpdateCartItemParam implements Serializable {
     @ApiModelProperty("商品数量")
     private Integer goodsCount;
 
-    @ApiModelProperty("商品id")
-    private Long goodsId;
+    @ApiModelProperty("购物项id")
+    private Long shoppingCartItemId;
 }
