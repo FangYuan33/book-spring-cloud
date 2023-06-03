@@ -29,10 +29,6 @@ public class GoodsEditParam {
     @Min(value = 1, message = "分类id最低为1")
     private Long goodsCategoryId;
 
-    @ApiModelProperty("商品主图")
-    @NotEmpty(message = "商品主图不能为空")
-    private String goodsCoverImg;
-
     @ApiModelProperty("originalPrice")
     @Min(value = 1, message = "originalPrice最低为1")
     @Max(value = 1000000, message = "originalPrice最高为1000000")
@@ -53,7 +49,4 @@ public class GoodsEditParam {
     private String tag;
 
     private Integer goodsSellStatus;
-
-    @ApiModelProperty("商品详情")
-    private String goodsDetailContent;
 }

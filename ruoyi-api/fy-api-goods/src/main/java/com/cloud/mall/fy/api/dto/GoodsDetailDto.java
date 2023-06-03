@@ -21,23 +21,14 @@ public class GoodsDetailDto {
     @ApiModelProperty("商品库存")
     private Integer stockNum;
 
-    @ApiModelProperty("商品图片地址")
-    private String goodsCoverImg;
-
     @ApiModelProperty("商品价格")
     private Integer sellingPrice;
 
     @ApiModelProperty("商品标签")
     private String tag;
 
-    @ApiModelProperty("商品图片")
-    private String[] goodsCarouselList;
-
     @ApiModelProperty("商品原价")
     private Integer originalPrice;
-
-    @ApiModelProperty("商品详情字段")
-    private String goodsDetailContent;
 
     /**
      * 商品上架状态 1-上架 0-下架

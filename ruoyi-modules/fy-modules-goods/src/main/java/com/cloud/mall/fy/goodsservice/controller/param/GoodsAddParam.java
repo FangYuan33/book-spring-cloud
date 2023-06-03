@@ -27,10 +27,6 @@ public class GoodsAddParam {
     @Min(value = 1, message = "分类id最低为1")
     private Long goodsCategoryId;
 
-    @ApiModelProperty("商品主图")
-    @NotEmpty(message = "商品主图不能为空")
-    private String goodsCoverImg;
-
     @ApiModelProperty("originalPrice")
     @NotNull(message = "originalPrice不能为空")
     @Min(value = 1, message = "originalPrice最低为1")
@@ -55,8 +51,4 @@ public class GoodsAddParam {
     private String tag;
 
     private Integer goodsSellStatus;
-
-    @ApiModelProperty("商品详情")
-    @NotEmpty(message = "商品详情不能为空")
-    private String goodsDetailContent;
 }

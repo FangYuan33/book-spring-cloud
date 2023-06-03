@@ -30,21 +30,6 @@ public class GoodsInfo extends BaseEntityForMall {
     private String goodsIntro;
 
     /**
-     * 商品详情
-     */
-    private String goodsDetailContent;
-
-    /**
-     * 封面图
-     */
-    private String goodsCoverImg;
-
-    /**
-     * 商品轮播图
-     */
-    private String goodsCarousel;
-
-    /**
      * 原价
      */
     private Integer originalPrice;

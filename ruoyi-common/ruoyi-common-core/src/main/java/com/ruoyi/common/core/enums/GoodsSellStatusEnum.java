@@ -11,11 +11,11 @@ public enum GoodsSellStatusEnum {
     /**
      * 下架
      */
-    PUT_DOWN(1, "商品已下架"),
+    PUT_DOWN(0, "下架"),
     /**
      * 上架
      */
-    PUT_UP(0, "商品已上架");
+    PUT_UP(1, "上架");
 
     private final Integer value;
     private final String desc;
