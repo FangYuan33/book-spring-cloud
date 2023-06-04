@@ -32,6 +32,17 @@
 - 购物车商品删除
 - 购物车商品修改
 
+#### fy-modules-order
+
+##### UserAddress
+
+- 用户地址新增
+- 用户地址详情
+- 用户地址修改
+- 获取默认用户地址
+- 用户地址列表
+- 删除用户地址
+
 ### [Spring Cloud Alibaba 大型微服务项目实战](https://s.juejin.cn/ds/6tgXRVH/)
 
 ### 1. 为什么要使用微服务？
