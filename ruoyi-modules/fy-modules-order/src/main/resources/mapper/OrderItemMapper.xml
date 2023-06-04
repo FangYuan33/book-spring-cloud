@@ -9,6 +9,9 @@
         <result column="selling_price" jdbcType="INTEGER" property="sellingPrice"/>
         <result column="goods_count" jdbcType="INTEGER" property="goodsCount"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_user" jdbcType="INTEGER" property="createUser"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="update_user" jdbcType="INTEGER" property="updateUser"/>
     </resultMap>
     <sql id="Base_Column_List">
     id, order_id, goods_id, goods_name, goods_cover_img, selling_price, goods_count,

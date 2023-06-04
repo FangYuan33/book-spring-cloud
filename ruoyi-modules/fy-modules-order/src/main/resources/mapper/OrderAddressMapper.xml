@@ -10,6 +10,10 @@
     <result column="city_name" jdbcType="VARCHAR" property="cityName" />
     <result column="region_name" jdbcType="VARCHAR" property="regionName" />
     <result column="detail_address" jdbcType="VARCHAR" property="detailAddress" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    <result column="create_user" jdbcType="INTEGER" property="createUser"/>
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    <result column="update_user" jdbcType="INTEGER" property="updateUser"/>
   </resultMap>
   <sql id="Base_Column_List">
     id, order_id, user_name, user_phone, province_name, city_name, region_name, detail_address

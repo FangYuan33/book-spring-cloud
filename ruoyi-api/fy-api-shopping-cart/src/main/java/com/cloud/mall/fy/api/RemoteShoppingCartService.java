@@ -16,11 +16,11 @@ import java.util.List;
         fallbackFactory = RemoteShoppingCartFallbackFactory.class)
 public interface RemoteShoppingCartService {
 
-    @PostMapping("/shopping-cart/listByIds")
+    @PostMapping("/shopping-cart/inner/listByIds")
     R<List<ShoppingCartItemDto>> toSettle(@RequestBody List<Long> cartItemIds,
                                           @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
 
-    @PostMapping("/shopping-cart/delete")
+    @PostMapping("/shopping-cart/inner/delete")
     R<Boolean> deleteShoppingCartItem(@RequestBody List<Long> shoppingCartItemIdList,
                                           @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
 }

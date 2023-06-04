@@ -196,7 +196,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderHeader> impl
                                                       Long orderId) {
         ArrayList<OrderItem> orderItems = new ArrayList<>(goodsList.size());
         for (GoodsDetailDto goodsDetailDto : goodsList) {
-            // 订单ID、商品ID、商品名、商品图片、商品售价、商品数
+            // 订单ID、商品ID、商品名、商品售价、商品数
             OrderItem orderItem = new OrderItem().setOrderId(orderId).setGoodsId(goodsDetailDto.getId())
                     .setGoodsName(goodsDetailDto.getGoodsName()).setSellingPrice(goodsDetailDto.getSellingPrice())
                     .setGoodsCount(goodsCountMap.get(goodsDetailDto.getId()));

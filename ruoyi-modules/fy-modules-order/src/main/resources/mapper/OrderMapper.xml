@@ -13,11 +13,9 @@
         <result column="extra_info" jdbcType="VARCHAR" property="extraInfo"/>
         <result column="is_deleted" jdbcType="TINYINT" property="isDeleted"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_user" jdbcType="INTEGER" property="createUser"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="update_user" jdbcType="INTEGER" property="updateUser"/>
     </resultMap>
-    <sql id="Base_Column_List">
-    id, order_no, user_id, total_price, pay_status, pay_type, pay_time, order_status,
-    extra_info, is_deleted, create_time, update_time
-  </sql>
 
 </mapper>
