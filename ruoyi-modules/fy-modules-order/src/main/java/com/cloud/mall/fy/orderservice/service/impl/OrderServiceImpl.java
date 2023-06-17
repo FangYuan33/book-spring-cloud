@@ -86,9 +86,9 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderHeader> impl
     }
 
     @SuppressWarnings("unchecked")
-    @Transactional
-    @GlobalTransactional
     @Override
+    @GlobalTransactional
+    @Transactional(rollbackFor = Exception.class)
     public void saveOrder(OrderSaveParam orderSaveParam) {
         // 参数校验
         if (orderSaveParam.getAddressId() == null || orderSaveParam.getCartItemIds() == null
@@ -122,6 +122,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderHeader> impl
 
         // 删除购物车中商品
         shoppingCartService.deleteShoppingCartItem(orderSaveParam.getCartItemIds(), SecurityConstants.INNER);
+
+//        int i = 1 / 0;
     }
 
     /**
@@ -214,6 +216,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderHeader> impl
         // 订单ID、收货人电话、姓名、地址信息
         OrderAddress orderAddress = new OrderAddress().setOrderId(orderId);
         BeanUtils.copyProperties(userAddress, orderAddress);
+        // 清空ID值，避免插入数据失败
+        orderAddress.setId(null);
 
         return orderAddress;
     }

@@ -75,6 +75,7 @@ seata:
   client:
     undo:
       log-serialization: kryo
+  data-source-proxy-mode: XA
 
 swagger:
   enabled: true

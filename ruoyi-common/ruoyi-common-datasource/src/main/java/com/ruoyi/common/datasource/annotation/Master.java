@@ -9,14 +9,13 @@ import com.baomidou.dynamic.datasource.annotation.DS;
 
 /**
  * 主库数据源
- * 
+ *
  * @author ruoyi
  */
-@Target({ ElementType.TYPE, ElementType.METHOD })
+@Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @DS("master")
-public @interface Master
-{
+public @interface Master {
 
 }
